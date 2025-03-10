@@ -77,20 +77,25 @@ document.addEventListener("DOMContentLoaded", () => {
     // Verifica se a pintura está completa apenas depois de pintar todos os triângulos
     if (isFullyPainted()) {
       pinturaConcluida = true;
-
-      setTimeout(() => {
-        // Espera a pintura ser completamente renderizada
-        exibirMensagemTemporaria("Toda a figura foi preenchida!"); // Exibe a mensagem após a pintura
-      }, 0);
-
-      setTimeout(() => {
-        exibirMensagemTemporaria("Salve a imagem para prosseguir!");
-      }, 2000);
+         // Verifica se a pintura está completa apenas depois de pintar todos os triângulos
+    if (isFullyPainted()) {
+      pinturaConcluida = true;
+      // Exibir mensagem de sucesso sem confirmação
+      exibirMensagemTemporaria1(
+        "Imagem salva com sucesso!",
+        "Salve a imagem para continuar",
+        2000,
+        3000,
+      );
     }
   }
 
   function isFullyPainted() {
     return triangles.length >= vertices.length - 2;
+
+    canvas.removeEventListener('click', 'pintarElementos');
+    canvas.removeEventListener('click', 'exibirMensagemComSeletor');
+  }
   }
 
   // Função para exibir a mensagem temporária no meio da tela
@@ -163,4 +168,42 @@ document.addEventListener("DOMContentLoaded", () => {
     mensagensDiv.className = "mensagens-div";
     mensagensDiv.style.display = "flex"; // Exibe a janela de mensagens
   }
+
+  
+// Função para exibir a mensagem temporária no meio da tela
+function exibirMensagemTemporaria1(mensagem1, mensagem2, tempo1 = 2000, tempo2 = 3000) {
+  function criarMensagem(mensagem) {
+      const msgDiv = document.createElement("div");
+      msgDiv.textContent = mensagem;
+      Object.assign(msgDiv.style, {
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          background: "rgba(0, 128, 0, 0.8)",
+          color: "white",
+          padding: "20px 30px",
+          borderRadius: "8px",
+          fontSize: "20px",
+          fontWeight: "bold",
+          zIndex: "1000",
+      });
+      document.body.appendChild(msgDiv);
+      return msgDiv;
+  }
+
+  const msg1 = criarMensagem(mensagem1);
+  setTimeout(() => {
+      msg1.remove();
+      const msg2 = criarMensagem(mensagem2);
+
+      setTimeout(() => {
+          msg2.remove();
+          if (url) {
+              window.location.href = url;
+          }
+      }, tempo2);
+  }, tempo1);
+}
+
 });

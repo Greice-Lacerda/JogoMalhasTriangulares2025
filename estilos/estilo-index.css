@@ -1,4 +1,5 @@
 /*estulo index*/
+
 #game-container {
   display: flex;
   flex-direction: row;
@@ -55,7 +56,7 @@ ol {
 
 #img {
   filter: drop-shadow(10px 10px 2px);
-  background-image: url("C:/Users/Greice Lacerda/OneDrive/ASSUNTOS DE KELI/CAP-UERJ/PARA ARTIGOS FUTUROS 2025/Jogo Malhas/Imagens/Logo.png");
+  background-image: url("../imagens/Logo.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -83,7 +84,9 @@ ol {
 .controls2 button {
   width: 180px;
   height: 40px;
+  justify-content: center;
   align-items: center;
+  text-align: center;
   margin-bottom: 5px;
   padding: 20px;
   font-size: 16px;

@@ -38,16 +38,16 @@ document.getElementById("salvarJogo").addEventListener("click", function () {
 localStorage.setItem(".imagensSalvas", JSON.stringify(imagensSalvas));
 
 // Exibir mensagem de sucesso sem confirmação
-exibirMensagemTemporaria(
+exibirMensagemTemporaria1(
     "Imagem salva com sucesso!",
     "Indo para a próxima fase!",
+    3000,
     1000,
-    1000,
-    "C:/Users/Greice Lacerda/OneDrive/ASSUNTOS DE KELI/CAP-UERJ/PARA ARTIGOS FUTUROS 2025/Jogo Malhas/pages/Desafio.html"
+    "../paginas/desafio.html"
 );
 
 // Função para exibir a mensagem temporária no meio da tela
-function exibirMensagemTemporaria(mensagem1, mensagem2, tempo1 = 1000, tempo2 = 1000, url = "") {
+function exibirMensagemTemporaria1(mensagem1, mensagem2, tempo1 = 1000, tempo2 = 1000, url = "") {
     function criarMensagem(mensagem) {
         const msgDiv = document.createElement("div");
         msgDiv.textContent = mensagem;

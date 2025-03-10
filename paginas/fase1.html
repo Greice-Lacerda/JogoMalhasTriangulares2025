@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fase 1 - Jogo de Vértices</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="C:\Users\Greice Lacerda\OneDrive\ASSUNTOS DE KELI\CAP-UERJ\PARA ARTIGOS FUTUROS 2025\Jogo Malhas\estilos\estilos-comuns.css">
-    <link rel="stylesheet" href="C:\Users\Greice Lacerda\OneDrive\ASSUNTOS DE KELI\CAP-UERJ\PARA ARTIGOS FUTUROS 2025\Jogo Malhas\estilos\estilo-fase1.css">
-    <link rel="stylesheet" href="C:\Users\Greice Lacerda\OneDrive\ASSUNTOS DE KELI\CAP-UERJ\PARA ARTIGOS FUTUROS 2025\Jogo Malhas\estilos\estilo-instrucoes.css">
+    <link rel="stylesheet" href="../estilos/estilo-fase1.css">
+    <link rel="stylesheet" href="../estilos/estilos-comuns.css">
+    <link rel="stylesheet" href="../estilos/estilo-instruções.css">
+  
 </head>
 <body>
     <header>
@@ -16,18 +16,22 @@
     <main id="game-container">
         <aside id="sidebar">
             <fieldset id="orientacao">
-                <legend><strong>Instruções:</strong></legend>
-                <div>
-                    <img src="C:\Users\Greice Lacerda\OneDrive\ASSUNTOS DE KELI\CAP-UERJ\PARA ARTIGOS FUTUROS 2025\Jogo Malhas\Imagens\Logo.png" id="img1">
-                    <div class="texto-na-frente1">                        
+                <legend><strong>Instruções:</strong></legend>                
+                    <img src="../imagens/Logo.png" id="img1">
+                    <div class="texto-na-frente"> 
                         <section>
-                            <h3 id="tfase">Fase 1 – Polígonos</h3>
-                            <div>
-                                <p id="p-texto">Para escolher o número de vértices da figura, clique no botão <strong>"Adicionar Vértice"</strong>.</p> 
-                                <div id="mensagens"></div>   
-                            </div>
+                            <h3 id="t-bem">Fase 1 – Polígonos</h3>
+                                <div>
+                                    <p id="t-jogo">
+                                    Para escolher o número de vértices da figura, clique no botão 
+                                    <strong>"Adicionar Vértice"</strong> e depois na malha.
+                                    </p> 
+                                        <div id='mensagens' class="mensagens-div">
+                                            <p id="mensagem-texto" class="mensagem-texto"></p>
+                                        </div>   
+                                </div>
                         </section>
-                </div>
+                    </div>                              
             </fieldset>
         </aside>
         <section>
@@ -41,13 +45,13 @@
             <fieldset class="controls">
                 <legend><strong>Controles:</strong></legend>
                 <div class="draggable" id="addVertex" draggable="true">
-                    <button class="paint-button"><img src="C:\Users\Greice Lacerda\OneDrive\ASSUNTOS DE KELI\CAP-UERJ\PARA ARTIGOS FUTUROS 2025\Jogo Malhas\Imagens\ponto-final.png" class="icon">Adicionar Vértice</button>
+                    <button class="paint-button"><img src="../imagens/ponto-final.png" class="icon">Adicionar Vértice</button>
                 </div>
                 <div class="draggable" id="addEdge" draggable="true">
-                    <button class="paint-button"><img src="C:\Users\Greice Lacerda\OneDrive\ASSUNTOS DE KELI\CAP-UERJ\PARA ARTIGOS FUTUROS 2025\Jogo Malhas\Imagens\reta.png" class="icon">Adicionar Aresta</button>
+                    <button class="paint-button"><img src="../imagens/reta.png" class="icon">Adicionar Aresta</button>
                 </div>
                 <div class="draggable" id="pintar" draggable="true">
-                    <button id="pintarElementos"><img src="C:\Users\Greice Lacerda\OneDrive\ASSUNTOS DE KELI\CAP-UERJ\PARA ARTIGOS FUTUROS 2025\Jogo Malhas\Imagens\pincel.png" class="pincel">Pintar Elementos</button>
+                    <button id="pintarElementos"><img src="../imagens/pincel.png" class="pincel">Pintar Elementos</button>
                 </div>
             
             <div class="controls1">
@@ -60,18 +64,17 @@
                 </fieldset>
             </div>
         </section>
-    </main>    
-        <footer>
-            <fieldset id="credits">
-                <legend>Créditos</legend>
-                Criado por Pablo e Greice em 2025
-            </fieldset>
-        </footer>
-    <script src="C:/Users/Greice Lacerda/OneDrive/ASSUNTOS DE KELI/CAP-UERJ/PARA ARTIGOS FUTUROS 2025/Jogo Malhas/js/fase1.js"></script>
-    <script src="C:/Users/Greice Lacerda/OneDrive/ASSUNTOS DE KELI/CAP-UERJ/PARA ARTIGOS FUTUROS 2025/Jogo Malhas/js/pintar.js"></script>
-    <script src="C:/Users/Greice Lacerda/OneDrive/ASSUNTOS DE KELI/CAP-UERJ/PARA ARTIGOS FUTUROS 2025/Jogo Malhas/js/resetar.js"></script>
-    <script src="C:/Users/Greice Lacerda/OneDrive/ASSUNTOS DE KELI/CAP-UERJ/PARA ARTIGOS FUTUROS 2025/Jogo Malhas/js/salvar.js"></script>
-    <script src="C:/Users/Greice Lacerda/OneDrive/ASSUNTOS DE KELI/CAP-UERJ/PARA ARTIGOS FUTUROS 2025/Jogo Malhas/js/imprimir.js"></script>
-
+    </main>
+    
+    <footer>
+        <fieldset id="credits">
+            <legend>Créditos</legend>
+            Criado por Pablo e Greice em 2025
+        </fieldset>
+    </footer>
+    <script src="../logica/fase1.js"></script>
+    <script src="../logica/pintar.js"></script>
+    <script src="../logica/imprimir.js"></script>
+    <script src="../logica/salvar.js"></script>
 </body>
 </html>
