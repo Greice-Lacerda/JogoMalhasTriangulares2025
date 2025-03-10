@@ -1,0 +1,271 @@
+:root {
+  --primary-color: #006782;
+  --secondary-color: #0b1284;
+  --accent-color: #760ea1;
+  --highlight-color: lightgreen;
+  --border-color: #ccc;
+  --button-border: 5px;
+  --button-radius: 5px;
+  --font-small: 12.5px;
+  --font-medium: 15px;
+}
+
+#game-container {
+  display: flex;
+  flex-direction: row;
+}
+
+#gameCanvas {
+  border: 1px solid #000;
+  background-color: white;
+  background-image: linear-gradient(lightgray 1px, transparent 1px),
+    linear-gradient(90deg, lightgray 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-repeat: repeat;
+  width: 500px;
+  height: 400px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.orientacao,
+.controls,
+.controls1,
+.draggable,
+#tela {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: transparent;
+}
+
+.orientacao {
+  margin-right: auto;
+  padding: 25px;
+  border: 1px solid var(--border-color);
+  width: 330px;
+  height: 430px;
+}
+
+.orientacao button,
+.controls button,
+.controls1 button {
+  width: 200px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: var(--button-radius);
+  transition: 0.2s;
+}
+
+.orientacao button {
+  height: 25px;
+  margin-bottom: 10px;
+  padding: 1px 2px;
+  border: none;
+  background-color: green;
+  color: white;
+  transition: 0.2s, background-color 0.3s;
+}
+
+.orientacao button:hover {
+  background-color: var(--highlight-color);
+  transform: scale(1.1);
+}
+
+.orientacao button:active {
+  transform: scale(0.95);
+}
+
+h4,
+ol,
+ul,
+li,
+#p-texto,
+#questao,
+#questao1,
+#questao3 ul {
+  text-align: justify;
+  padding-left: 8px;
+}
+
+h4,
+ol,
+ul,
+li {
+  font-size: var(--font-small);
+}
+
+#p-texto,
+#questao,
+#questao1,
+#questao3 ul {
+  font-size: var(--font-medium);
+  margin-left: 15px;
+  padding: 1px;
+  margin-top: 1px;
+}
+
+.controls {
+  margin-left: 15px;
+  margin-right: 5px;
+  padding: 10px;
+  border: 2px solid outset var(--border-color);
+}
+
+.controls button {
+  height: 50px;
+  margin-left: 15px;
+  padding: 1px;
+  border: outset var(--button-border) rgb(151, 151, 181);
+  background: linear-gradient(
+    45deg,
+    var(--primary-color) 40%,
+    var(--secondary-color) 50%,
+    var(--accent-color) 60%,
+    #83096e
+  );
+  color: white;
+}
+
+.controls button:hover {
+  background-color: lightseagreen;
+  transform: scale(1.1);
+}
+
+.controls button:active {
+  transform: scale(0.95);
+}
+
+.draggable {
+  margin-left: 8px;
+  margin-right: 15px;
+  margin-top: 1px;
+  padding: 1px;
+}
+
+canvas {
+  cursor: default;
+}
+
+canvas:active {
+  cursor: pointer;
+}
+
+#sidebar {
+  position: relative;
+}
+
+#img1 {
+  width: 100%;
+  height: 390px;
+  opacity: 0.3;
+  filter: drop-shadow(10px 10px 2px);
+}
+
+.pincel {
+  width: 30px;
+  height: 30px;
+}
+
+.texto-na-frente {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: black;
+  z-index: 1;
+  padding: 20px;
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+#img1:hover {
+  transform: scale(1.1);
+  box-shadow: 0 30px 30px rgba(255, 255, 255, 1);
+  animation: spin 5s linear infinite;
+}
+
+#tela {
+  align-items: center;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  width: 450px;
+  height: 420px;
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+}
+
+.controls1 {
+  margin-left: 8px;
+  margin-right: 15px;
+  margin-top: 1px;
+  padding: 1px;
+  border: solid outset 2px var(--border-color);
+}
+
+.controls1 button {
+  height: 35px;
+  padding: 5px;
+  margin-bottom: 5px;
+  border: outset var(--button-border) yellow;
+  background: linear-gradient(
+    45deg,
+    #b3b7a5 10%,
+    #c9f054 30%,
+    #30382b 70%,
+    #c05d20
+  );
+  color: white;
+}
+
+.controls1 button:hover {
+  background-color: lightgoldenrodyellow;
+  transform: scale(1.1);
+}
+
+.controls1 button:active {
+  transform: scale(0.95);
+}
+
+.mensagens-div {
+  background-color: rgba(39, 168, 69, 0.8);
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1000;
+}
+
+.mensagem-texto {
+  margin-bottom: 10px;
+  font-size: 18px;
+  text-align: center;
+}
+
+.color-table {
+  border-collapse: collapse;
+  margin: 0 auto;
+}
+
+.color-table td {
+  padding: 5px;
+}
+
+.color-button {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  border: 0 solid white;
+  border-radius: 50%;
+}
+
+.texto-na-frente1 {
+  width: 1500px;
+}

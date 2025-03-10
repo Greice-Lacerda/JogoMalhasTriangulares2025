@@ -1,0 +1,113 @@
+#i3 {
+  margin-top: 285px;
+  width: 430px;
+  height: 50vh;
+}
+
+#tfase {
+  margin-top: 1px;
+  font-size: 24px;
+  text-align: center;
+  filter: drop-shadow(2px 6px 8px rgba(255, 255, 255, 1));
+}
+
+#tfase:hover {
+  transform: scale(1.1);
+  text-shadow: 0 5px 5px rgba(255, 255, 255, 0.6);
+  animation: spin 5s linear infinite;
+}
+
+#tbem {
+  margin: 5px;
+  font-size: 24px;
+  text-align: center;
+  color: transparent;
+  background-clip: text;
+  background-color: hsl(34, 53%, 82%);
+  background-image: repeating-linear-gradient(
+    45deg,
+    #d7dd60 0%,
+    #e4f52a 20%,
+    #f3a322 30%,
+    #f5511b 40%,
+    #230f07 50%,
+    #37094a 60%,
+    #83096e 70%,
+    #840b2a 80%,
+    #623c59 90%,
+    #ef0a0a 100%
+  );
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#tbem:hover {
+  transform: scale(1.1);
+  text-shadow: 0 5px 5px white;
+  animation: spin 5s linear infinite;
+}
+
+p {
+  text-align: justify;
+  font-size: 12px;
+  padding: 1px;
+  margin-top: 1px;
+}
+
+#questao,
+ul,
+li {
+  margin-left: 15px;
+  text-align: justify;
+  font-size: 12px;
+  padding: 1px;
+  margin-top: 1px;
+}
+
+b {
+  font-size: 16px;
+  color: darkblue;
+  text-shadow: 20px;
+}
+
+.texto-na-frente {
+  position: absolute; /* Define a posição absoluta para o texto */
+  top: 0; /* texto ao topo do contêiner */
+  left: 0; /* Alinha o texto à esquerda do contêiner */
+  width: 100%; /* Ajusta a largura do texto */
+  color: black; /* Cor do texto */
+  z-index: 1; /* Garante que o texto fique na frente */
+  padding: 20px; /* Espaçamento interno para o texto */
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
+#tela1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 1px;
+  margin-bottom: 10px;
+  padding: 1px;
+  border: 1px solid #ccc;
+  background-color: transparent;
+  width: 530px;
+  height: 400px;
+}
+
+.texto-na-frente1 {
+  position: absolute; /* Define a posição absoluta para o texto */
+  top: 0; /* Alinha o texto ao topo do contêiner */
+  left: 0; /* Alinha o texto à esquerda do contêiner */
+  width: 90%; /* Ajusta a largura do texto */
+  color: black; /* Cor do texto */
+  z-index: 1; /* Garante que o texto fique na frente */
+  padding: 20px; /* Espaçamento interno para o texto */
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+.legend1 {
+  color: yellow;
+  font-size: 18px;
+  filter: drop-shadow(0 0 5px white);
+}
