@@ -8,30 +8,16 @@ document.addEventListener("DOMContentLoaded", () => {
   let triangles = [];
 
   const cores = [
-    "#f0ff00",
-    "#ff0000",
-    "#00ff00",
-    "#0000ff",
-    "#ff00ff",
-    "#00ffff",
-    "#800000",
-    "#808000",
-    "#008080",
-    "#800080",
-    "#ff8000",
-    "#80ff00",
-    "#00ff80",
-    "#0080ff",
-    "#8000ff",
-    "#ff0080",
-    "#ff8080",
-    "#80ff80",
-    "#8080ff",
-    "#ffff80",
+    "#f0ff00", "#ff0000", "#00ff00", "#0000ff", "#ff00ff", "#00ffff",
+    "#800000", "#808000", "#008080", "#800080", "#ff8000", "#80ff00",
+    "#00ff80", "#0080ff", "#8000ff", "#ff0080", "#ff8080", "#80ff80",
+    "#8080ff", "#ffff80"
   ];
 
   document.getElementById("pintarElementos").addEventListener("click", () => {
-    exibirMensagemComSeletor("selecione a cor da figura");
+    if (!pinturaConcluida) {
+      exibirMensagemComSeletor("Selecione a cor da figura:");
+          }
   });
 
   function selecionarVertice(event) {
@@ -52,9 +38,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Fecha a mensagem temporária ao clicar no vértice
-    const mensagensDiv = document.getElementById("mensagens");
-    if (mensagensDiv) {
-      mensagensDiv.style.display = "none";
+    const mensagensDiv1 = document.getElementById("mensagens");
+    if (mensagensDiv1) {
+      mensagensDiv1.style.display = "none";
     }
   }
 
@@ -74,71 +60,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
     selectedVerticesForTriangle = [];
 
-    // Verifica se a pintura está completa apenas depois de pintar todos os triângulos
     if (isFullyPainted()) {
       pinturaConcluida = true;
-         // Verifica se a pintura está completa apenas depois de pintar todos os triângulos
-    if (isFullyPainted()) {
-      pinturaConcluida = true;
-      // Exibir mensagem de sucesso sem confirmação
-      exibirMensagemTemporaria1(
-        "Imagem salva com sucesso!",
-        "Salve a imagem para continuar",
-        2000,
-        3000,
-      );
+      document.getElementById("pintarElementos").disabled = true;
+      canvas.removeEventListener("click", selecionarVertice);
+      exibirMensagemTemporaria("Imagem Completa! Clique em Salvar para continuar.");
     }
   }
 
   function isFullyPainted() {
     return triangles.length >= vertices.length - 2;
-
-    canvas.removeEventListener('click', 'pintarElementos');
-    canvas.removeEventListener('click', 'exibirMensagemComSeletor');
-  }
   }
 
-  // Função para exibir a mensagem temporária no meio da tela
   function exibirMensagemTemporaria(mensagem) {
-    const mensagensDiv = document.getElementById("mensagens");
+    mensagem.style.display = "flex";
+    mensagem.style.justifyContent = "center";
+    mensagem.style.alignItems = "center";
+    mensagem.style.height = "100%";
+    mensagem.style.background = "linear-gradient(to right, #ff7e5f, #feb47b)";
 
-    if (!mensagensDiv) {
-      console.error("Elemento com id 'mensagens' não encontrado.");
-      return;
-    }
+    mensagensDiv.appendChild(mensagem);
 
-    // Limpa o conteúdo anterior da div
-    mensagensDiv.innerHTML = "";
-
-    // Adiciona a mensagem principal
-    const mensagemTexto = document.createElement("p");
-    mensagemTexto.textContent = mensagem;
-    mensagemTexto.className = "mensagem-texto";
-
-    // Aplica os estilos na div mensagens
-    mensagensDiv.className = "mensagens-div";
-    mensagensDiv.style.display = "flex"; // Exibe a janela de mensagens
+    setTimeout(() => {
+      mensagensDiv1.removeChild(mensagem);
+    }, 5000);
   }
 
-  // Função para exibir a mensagem com o seletor de cores
   function exibirMensagemComSeletor(mensagem) {
-    const mensagensDiv = document.getElementById("mensagens");
+    const mensagensDiv1 = document.getElementById("mensagens");
 
-    if (!mensagensDiv) {
+    if (!mensagensDiv1) {
       console.error("Elemento com id 'mensagens' não encontrado.");
       return;
     }
 
-    // Limpa o conteúdo anterior da div
-    mensagensDiv.innerHTML = "";
+    mensagensDiv1.innerHTML = "";
 
-    // Adiciona a mensagem principal
     const mensagemTexto = document.createElement("p");
     mensagemTexto.textContent = mensagem;
-    mensagemTexto.className = "mensagem-texto";
+    mensagemTexto.className = "mensagemTexto";
+    mensagemTexto.style.paddingBottom = "5px"; // Adiciona padding abaixo da mensagem
 
-    // Adiciona o seletor de cores
-    mensagensDiv.appendChild(mensagemTexto);
+    mensagensDiv1.appendChild(mensagemTexto);
 
     const tabela = document.createElement("table");
     tabela.className = "color-table";
@@ -156,54 +119,25 @@ document.addEventListener("DOMContentLoaded", () => {
         corSelecionada = cor;
         canvas.addEventListener("click", selecionarVertice);
 
-        // Fecha a mensagem temporária ao selecionar a cor
-        mensagensDiv.style.display = "none";
+        mensagensDiv1.style.display = "none";
       });
       cell.appendChild(button);
     });
 
-    mensagensDiv.appendChild(tabela);
+    mensagensDiv1.appendChild(tabela);
 
-    // Aplica os estilos na div mensagens
-    mensagensDiv.className = "mensagens-div";
-    mensagensDiv.style.display = "flex"; // Exibe a janela de mensagens
+    mensagensDiv1.className = "mensagensDiv2";
+    mensagensDiv1.style.display = "flex";
+    mensagensDiv1.style.flexDirection = "column"; // Alinha a mensagem e a tabela em coluna
+    mensagensDiv1.style.alignItems = "center"; // Centraliza a mensagem e a tabela
+    mensagensDiv1.style.marginTop = "10%"; // Adiciona margem superior
   }
 
-  
-// Função para exibir a mensagem temporária no meio da tela
-function exibirMensagemTemporaria1(mensagem1, mensagem2, tempo1 = 2000, tempo2 = 3000) {
-  function criarMensagem(mensagem) {
-      const msgDiv = document.createElement("div");
-      msgDiv.textContent = mensagem;
-      Object.assign(msgDiv.style, {
-          position: "fixed",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          background: "rgba(0, 128, 0, 0.8)",
-          color: "white",
-          padding: "20px 30px",
-          borderRadius: "8px",
-          fontSize: "20px",
-          fontWeight: "bold",
-          zIndex: "1000",
-      });
-      document.body.appendChild(msgDiv);
-      return msgDiv;
+  function salvar() {
+    // Função para salvar a imagem
+    console.log("Imagem salva!");
   }
 
-  const msg1 = criarMensagem(mensagem1);
-  setTimeout(() => {
-      msg1.remove();
-      const msg2 = criarMensagem(mensagem2);
-
-      setTimeout(() => {
-          msg2.remove();
-          if (url) {
-              window.location.href = url;
-          }
-      }, tempo2);
-  }, tempo1);
-}
-
+  // Exibe a mensagem inicial
+  exibirMensagemTemporaria("Clique no botão Pintar Elementos para pintar os triângulos.");
 });

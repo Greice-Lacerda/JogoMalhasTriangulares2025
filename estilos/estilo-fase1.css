@@ -209,16 +209,25 @@ canvas:active {
 }
 
 .mensagens-div {
-  background-color: rgba(0, 0, 0, 0.8);
+  position: absolute; /* Define a posição absoluta para o texto */
+  background-color: transparent;
   color: white;
   padding: 20px;
+  margin: 20px;
   border-radius: 10px;
   width: 300px;
   height: 200px; 
 }
 
 .mensagem-texto {
-  margin: 0;
+  position: absolute; /* Define a posição absoluta para o texto */
+  padding: 10px 20px;
+  margin: 5px 20px;
+  font-size: 28px;
+  border-radius: 20px;
+  width: 300px;
+  height: 200px;
+  text-align: center;
 }
 
 .color-table {
@@ -239,7 +248,7 @@ canvas:active {
 }
 
 #t-fase {
-  margin-top: 1px;
+  margin-top: 15px;
   font-size: 24px;
   text-align: center;
   filter: drop-shadow(2px 6px 8px rgba(255, 255, 255, 1));
@@ -252,7 +261,7 @@ canvas:active {
 }
 
 #t-bem {
-  margin: 5px;
+  margin: 10px;
   font-size: 24px;
   text-align: center;
   color: transparent;
@@ -284,12 +293,15 @@ canvas:active {
   color:red;
 }
 
-.mensagem-amarela {
-    color:rgb(191, 238, 22);
+.mensagem-white {
+  font-size: 28px;
+    color: white;
+    text-shadow: #0b1284;
 }
 
 .mensagem-azul {
-  color:rgb(70, 35, 126);
+  font-size: 28px;
+  color: rgb(141, 159, 192);
 }
 
 @keyframes blink {
@@ -301,4 +313,24 @@ canvas:active {
 .mensagem-piscar {
   animation: blink 1s infinite;
 }
+
+#t-jogo{
+  margin: 15px 35px;
+}
+
+.mensagensDiv1 {
+  background-color: transparent;
+  color: white;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 10px;
+  width: 300px;
+  height: 200px; 
+}
+
+.mensagemTexto{
+  align-items: columm;
+
+}
+
 
