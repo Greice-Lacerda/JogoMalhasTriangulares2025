@@ -37,11 +37,11 @@ function fecharMensagemTemporaria() {
 }
 
 function voltar() {
-    window.location.href = "paginas/instrucao.html";
+    window.location.href = "../paginas/instrucao.html";
 }
 
 function imprimirJogo() {
-    window.open("paginas/imprimir.html", "_blank");
+    window.open("../paginas/imprimir.html", "_blank");
 }
 
 function sairJogo() {
