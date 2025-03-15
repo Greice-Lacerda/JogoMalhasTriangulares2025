@@ -2,39 +2,40 @@ let numVertices = 0;
 
 // Função para exibir a mensagem temporária
 function exibirMensagemTemporaria(mensagem, classe = "") {
-    const mensagensDiv = document.getElementById("mensagens");
-
-    if (!mensagensDiv) {
-        console.error("Elemento com id 'mensagens' não encontrado.");
-        return;
-    }
+    const mensagensDiv1 = document.getElementById("mensagens");
+    if (!mensagensDiv1) return;
 
     // Limpa o conteúdo anterior da div
-    mensagensDiv.innerHTML = "";
+    mensagemTexto.innerHTML = "";
 
     // Adiciona a mensagem principal
-    const mensagemTexto = document.createElement("p");
-    mensagemTexto.textContent = mensagem;
-    mensagensDiv.style.display = "flex";
-    mensagensDiv.style.justifyContent = "center";
-    mensagensDiv.style.alignItems = "center";
-    mensagensDiv.style.height = "100%"; // Certifique-se de que a altura da div pai seja suficiente
-    mensagensDiv.style.background = "linear-gradient(to right, #ff7e5f, #feb47b)"; // Degradê de exemplo
-    mensagensDiv.className = `mensagem-texto ${classe}`;
+    mensagensDiv1 = document.createElement("p");
+    mensagensDiv1.textContent = mensagem;
+    mensagensDiv1.style.display = "flex";
+    mensagensDiv1.style.justifyContent = "center";
+    mensagensDiv1.style.alignItems = "center";
+    mensagensDiv1.style.height = "100%"; // Certifique-se de que a altura da div pai seja suficiente
+    mensagensDiv1.style.background = "linear-gradient(to right, #ff7e5f, #feb47b)"; // Degradê de exemplo
+    mensagensDiv1.className = `mensagem-texto ${classe}`;
 
-    // Adiciona a mensagem à div
-    mensagensDiv.appendChild(mensagemTexto);
+    mensagensDiv1.textContent = mensagem;
 
-    // Aplica os estilos na div mensagens
-    mensagensDiv.style.display = "flex"; // Exibe a janela de mensagens        
+    setTimeout(() => {
+      mensagensDiv1.style.display = "none";
+    }, 3000);        
 }
 
 function fecharMensagemTemporaria() {
-    const mensagensDiv = document.getElementById("mensagens");
-    if (mensagensDiv) {
-        mensagensDiv.style.display = "none"; // Esconde a janela de mensagens
+    const mensagemTexto = document.getElementById("mensagens");
+    if (mensagemTexto) {
+        mensagemTexto.style.display = "none"; // Esconde a janela de mensagens
     }
 }
+
+document.getElementById("addVertex").addEventListener("click", () => {
+    iniciarJogo();    
+});
+ 
 
 function voltar() {
     window.location.href = "../paginas/instrucao.html";
@@ -67,17 +68,21 @@ canvas.style.backgroundRepeat = "repeat";
 // Função para iniciar o jogo ao clicar no botão "Adicionar Vértice"
 function iniciarJogo() {
     numVertices = parseInt(prompt("Escolha o número de vértices (mínimo 3):", 3));
-    
-const mensagem1 = "Clique na malha para inserir os vértices.";
-setTimeout(() => {
-    exibirMensagemTemporaria(mensagem1, "mensagem-vermelha");        
-}, 500);
-
     if (isNaN(numVertices) || numVertices < 3) {
         alert("Número inválido! Tente novamente.");
         return;
     }
+    
+    const mensagem1 = "Clique na malha para inserir os vértices.";
+    setTimeout(() => {
+        exibirMensagemTemporaria(mensagem1, "mensagem-vermelha");        
+    }, 500);
     canvas.addEventListener("click", addVertice);
+    
+    if(vertices.length >= numVertices){
+        canvas.removeEventListener('click', addVertice);
+        document.getElementById('addVertex').disabled = true; // Desabilita o botão "Adicionar Vértice"
+    }
 }
 
 function addVertice(event) {
@@ -89,17 +94,17 @@ function addVertice(event) {
     ctx.fill();
     if (vertices.length >= numVertices) {
         canvas.removeEventListener('click', addVertice);
-        
-        fecharMensagemTemporaria(); // Fecha a mensagem temporária anterior
-
-        const mensagem2 = "Clique no botão Adicionar Arestas para ligar dois vértices.";
-        setTimeout(() => {
-            exibirMensagemTemporaria(mensagem2, "mensagem-white");
-        }, 500);
+        document.getElementById('addVertex').disabled = true; // Desabilita o botão "Adicionar Vértice"        
     }
 }
 
-document.getElementById('addVertex').addEventListener('click', iniciarJogo);
+fecharMensagemTemporaria(); // Fecha a mensagem temporária anterior
+
+const mensagem2 = "Clique no botão Adicionar Arestas para ligar dois vértices.";
+setTimeout(() => {
+    exibirMensagemTemporaria(mensagem2, "mensagem-white");
+}, 500);
+
 
 document.getElementById('addEdge').addEventListener('click', function() {
     canvas.addEventListener('click', selectVertices);
@@ -142,7 +147,7 @@ function addAresta() {
         fecharMensagemTemporaria(); // Fecha a mensagem temporária anterior
 
         const mensagem3 = "Clique no botão Pintar Elementos para pintar os triângulos.";
-            setTimeout(() => {
+        setTimeout(() => {
             exibirMensagemTemporaria(mensagem3, "mensagem-azul");
         }, 500);
     }    
@@ -194,16 +199,3 @@ function areAllVerticesConnected() {
 
     return visited.size === vertices.length;
 }
-
-// Função para pintar os elementos
-function pintarElementos() {
-    fecharMensagemTemporaria(); // Fecha a mensagem temporária anterior
-    // Chama a função pintar do arquivo .js na pasta js
-    if (typeof pintar === "function") {
-        pintar();
-    } else {
-        console.error("Função pintar não encontrada.");
-    }
-}
-
-document.getElementById('pintarElementos').addEventListener('click', pintar);

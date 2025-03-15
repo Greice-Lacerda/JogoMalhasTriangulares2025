@@ -13,6 +13,25 @@
     <meta name="keywords" content="triangulação, educação, jogo, geometria" />
   </head>
   <body>
+  <div class="rotating-element">
+    <script>              
+          function handleOrientationChange() {
+              const element = document.querySelector('.rotating-element');
+              if (window.innerHeight > window.innerWidth) {
+                  // Portrait mode
+                  element.style.animation = 'rotate 5s linear infinite';
+              } else {
+                  // Landscape mode
+                  element.style.animation = 'rotate 3s linear infinite';
+              }
+          }
+
+          window.addEventListener('resize', handleOrientationChange);
+          window.addEventListener('orientationchange', handleOrientationChange);
+
+          // Initial check
+          handleOrientationChange();
+      </script>
     <header>
       <h1>Triangularizando e Aprendendo</h1>
     </header>
@@ -37,6 +56,14 @@
                   function sairJogo() {
                     window.location.href = "http://www.google.com/"; // Sai do jogo
                   }
+
+                  document.addEventListener('visibilitychange', function() {
+                    if (document.hidden) {
+                      document.body.classList.add('minimized');
+                          } else {
+                              document.body.classList.remove('minimized');
+                          }
+                      });
                 </script>
               </fieldset>
             </div>
@@ -77,5 +104,6 @@
         Criado por Pablo e Greice em 2025
       </fieldset>
     </footer>
+  </div>
   </body>
 </html>

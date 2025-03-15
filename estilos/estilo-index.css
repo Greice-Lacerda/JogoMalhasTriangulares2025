@@ -1,98 +1,103 @@
-/*estulo index*/
+/* Estilo index */
 
+/* Configurações gerais */
+body {
+  font-size: 1rem; /* Usando rem para ajustar com base no tamanho da fonte raiz */
+}
+
+/* Container do jogo */
 #game-container {
   display: flex;
   flex-direction: row;
 }
 
+/* Orientação */
 .orientacao {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-right: 30px;
-  padding: 10px;
+  margin-right: 2rem; /* Usando rem para margens */
+  padding: 6px;
   border: 1px solid #ccc;
   background-color: transparent;
-  width: 530px;
+  width: 33.125rem; /* Usando rem para largura */
   height: 67vh;
 }
 
+/* Títulos */
 h1 {
-  margin-top: 1px;
-  font-size: 40px;
-  padding: 2px;
+  margin-top: 0.0625rem;
+  font-size: 2.5rem;
+  padding: 0.125rem;
   color: white;
-  filter: drop-shadow(10px 10px 2px gray);
+  filter: drop-shadow(0.625rem 0.625rem 0.125rem gray);
 }
 
 h1:hover {
   transform: scale(1.1);
-  box-shadow: 0 30px 30px rgba(255, 255, 255, 1);
+  box-shadow: 0 1.875rem 1.875rem rgba(255, 255, 255, 1);
   animation: spin 5s linear infinite;
   border-radius: 40%;
 }
 
 h3 {
   text-align: center;
-  font-size: 20px;
-  padding: 10px;
-  margin: 5px;
+  font-size: 1.25rem;
+  padding: 0.625rem;
+  margin: 0.3125rem;
   background-color: transparent;
 }
 
 h4,
 p {
   text-align: justify;
-  font-size: 14px;
-  padding-left: 10px;
+  font-size: 0.875rem;
+  padding-left: 0.625rem;
 }
 
 li,
 ol {
   text-align: left;
-  font-size: 14px;
-  margin-left: 5px;
+  font-size: 0.875rem;
+  margin-left: 0.3125rem;
 }
 
+/* Imagens */
 #img {
-  filter: drop-shadow(10px 10px 2px);
+  filter: drop-shadow(0.625rem 0.625rem 0.125rem);
   background-image: url("../imagens/Logo.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  width: 530px;
-  height: 67vh;
+  width: 33.125rem;
+  height: 100%;
 }
 
-#i2 {
-  margin-top: 320px;
-  width: 430px;
-  height: 50vh;
-}
-
+/* Controles */
 .controls2 {
   display: flex;
-  flex-direction: line;
+  flex-direction: row;
   align-items: flex-start;
-  margin-left: 25px;
-  margin-right: 25px;
+  margin-top: 20px;
+  margin-left: 1.5625rem;
+  margin-right: 1.5625rem;
   padding: 10px;
-  border: solid outset 5px #ccc;
+  border: solid outset 0.3125rem #ccc;
   background-color: transparent;
 }
 
 .controls2 button {
-  width: 180px;
-  height: 40px;
+  width: 11.25rem;
+  height: 2.5rem;
   justify-content: center;
   align-items: center;
   text-align: center;
-  margin-bottom: 5px;
-  padding: 20px;
-  font-size: 16px;
+  margin-bottom: 0.3125rem;
+  padding: 1.25rem;
+  font-size: 1rem;
   cursor: pointer;
-  border: outset 5px rgb(151, 151, 181);
-  border-radius: 5px;
+  border: outset 0.3125rem rgb(151, 151, 181);
+  border-radius: 0.3125rem;
   background: linear-gradient(
     45deg,
     #006782 40%,
@@ -113,9 +118,10 @@ ol {
   transform: scale(0.95);
 }
 
+/* Texto especial */
 #tbem {
-  margin: 5px;
-  font-size: 24px;
+  margin: 0.3125rem;
+  font-size: 1.5rem;
   text-align: center;
   color: transparent;
   background-clip: text;
@@ -133,11 +139,11 @@ ol {
     #623c59 90%,
     #ef0a0a 100%
   );
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 0.125rem 0.125rem 0.25rem rgba(0, 0, 0, 0.5);
 }
 
 #tbem:hover {
   transform: scale(1.1);
-  text-shadow: 0 5px 5px white;
+  text-shadow: 0 0.3125rem 0.3125rem white;
   animation: spin 5s linear infinite;
 }

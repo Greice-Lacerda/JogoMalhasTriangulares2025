@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("pintarElementos").addEventListener("click", () => {
     if (!pinturaConcluida) {
       exibirMensagemComSeletor("Selecione a cor da figura:");
-          }
+    }
   });
 
   function selecionarVertice(event) {
@@ -62,9 +62,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (isFullyPainted()) {
       pinturaConcluida = true;
+
+      document.getElementById("addVertex").disabled = true;
       document.getElementById("pintarElementos").disabled = true;
       canvas.removeEventListener("click", selecionarVertice);
-      exibirMensagemTemporaria("Imagem Completa! Clique em Salvar para continuar.");
+      exibirMensagemPinturaConcluida();
     }
   }
 
@@ -73,17 +75,22 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function exibirMensagemTemporaria(mensagem) {
-    mensagem.style.display = "flex";
-    mensagem.style.justifyContent = "center";
-    mensagem.style.alignItems = "center";
-    mensagem.style.height = "100%";
-    mensagem.style.background = "linear-gradient(to right, #ff7e5f, #feb47b)";
+    const mensagensDiv1 = document.getElementById("mensagens");
+    if (!mensagensDiv1) return;
 
-    mensagensDiv.appendChild(mensagem);
+    mensagensDiv1.style.display = "flex";
+    mensagensDiv1.style.justifyContent = "center";
+    mensagensDiv1.style.fontSize = "20px";
+    mensagensDiv1.style.alignItems = "center";
+    mensagensDiv1.style.width = "100%";
+    mensagensDiv1.style.height = "100%";
+    mensagensDiv1.style.background = "linear-gradient(to right, #ff7e5f, #feb47b)";
+
+    mensagensDiv1.textContent = mensagem;
 
     setTimeout(() => {
-      mensagensDiv1.removeChild(mensagem);
-    }, 5000);
+      mensagensDiv1.style.display = "none";
+    }, 3000);
   }
 
   function exibirMensagemComSeletor(mensagem) {
@@ -117,9 +124,8 @@ document.addEventListener("DOMContentLoaded", () => {
       button.style.backgroundColor = cor;
       button.addEventListener("click", () => {
         corSelecionada = cor;
-        canvas.addEventListener("click", selecionarVertice);
-
-        mensagensDiv1.style.display = "none";
+        canvas.addEventListener("click", selecionarVertice);        
+        document.getElementById("addVertex").disabled = true;
       });
       cell.appendChild(button);
     });
@@ -130,14 +136,41 @@ document.addEventListener("DOMContentLoaded", () => {
     mensagensDiv1.style.display = "flex";
     mensagensDiv1.style.flexDirection = "column"; // Alinha a mensagem e a tabela em coluna
     mensagensDiv1.style.alignItems = "center"; // Centraliza a mensagem e a tabela
-    mensagensDiv1.style.marginTop = "10%"; // Adiciona margem superior
+    mensagensDiv1.style.marginTop = "10px"; // Adiciona margem superior
+    mensagensDiv1.style.width = "350px";
+    mensagensDiv1.style.height = "250px";
+    mensagensDiv1.style.borderRadius = "20px";
   }
 
-  function salvar() {
-    // Função para salvar a imagem
-    console.log("Imagem salva!");
+  function exibirMensagemPinturaConcluida() {
+    const mensagensDiv1 = document.getElementById("mensagens");
+    if (!mensagensDiv1) return;
+
+    mensagensDiv1.style.display = "flex";
+    mensagensDiv1.style.justifyContent = "center";
+    mensagensDiv1.style.fontSize = "20px";
+    mensagensDiv1.style.alignItems = "center";
+    mensagensDiv1.style.width = "100%";
+    mensagensDiv1.style.height = "100%";
+    mensagensDiv1.style.background = "linear-gradient(to right, #ff7e5f, #feb47b)";
+    mensagensDiv1.textContent = "Pintura concluída!";
   }
 
-  // Exibe a mensagem inicial
-  exibirMensagemTemporaria("Clique no botão Pintar Elementos para pintar os triângulos.");
+  // Desabilitar todos os botões no fieldset de legenda controles ao iniciar a função pintar
+  function desabilitarBotoes() {
+    const fieldset = document.getElementById('legendaControles');
+    const buttons = fieldset.querySelectorAll('button');
+    buttons.forEach(button => {
+      button.disabled = true;
+    });
+  }
+
+  // Função para pintar os elementos
+  function pintar() {
+    desabilitarBotoes(); // Desabilita todos os botões
+    console.log("Função pintar chamada.");
+    // Adicione aqui a lógica para pintar os elementos
+  }
+
+  document.getElementById('pintarElementos').addEventListener('click', pintar);
 });
