@@ -1,55 +1,4 @@
 let numVertices = 0;
-
-// Função para exibir a mensagem temporária
-function exibirMensagemTemporaria(mensagem, classe = "") {
-    const mensagensDiv1 = document.getElementById("mensagens");
-    if (!mensagensDiv1) return;
-
-    // Limpa o conteúdo anterior da div
-    mensagemTexto.innerHTML = "";
-
-    // Adiciona a mensagem principal
-    mensagensDiv1 = document.createElement("p");
-    mensagensDiv1.textContent = mensagem;
-    mensagensDiv1.style.display = "flex";
-    mensagensDiv1.style.justifyContent = "center";
-    mensagensDiv1.style.alignItems = "center";
-    mensagensDiv1.style.height = "100%"; // Certifique-se de que a altura da div pai seja suficiente
-    mensagensDiv1.style.background = "linear-gradient(to right, #ff7e5f, #feb47b)"; // Degradê de exemplo
-    mensagensDiv1.className = `mensagem-texto ${classe}`;
-
-    mensagensDiv1.textContent = mensagem;
-
-    setTimeout(() => {
-      mensagensDiv1.style.display = "none";
-    }, 3000);        
-}
-
-function fecharMensagemTemporaria() {
-    const mensagemTexto = document.getElementById("mensagens");
-    if (mensagemTexto) {
-        mensagemTexto.style.display = "none"; // Esconde a janela de mensagens
-    }
-}
-
-document.getElementById("addVertex").addEventListener("click", () => {
-    iniciarJogo();    
-});
- 
-
-function voltar() {
-    window.location.href = "../paginas/instrucao.html";
-}
-
-function imprimirJogo() {
-    window.open("../paginas/imprimir.html", "_blank");
-}
-
-function sairJogo() {
-    window.location.href = "http://www.google.com/"; // Sai do jogo
-}
-
-// Configuração do Canvas
 let vertices = [];
 let arestas = [];
 let canvas = document.getElementById("gameCanvas");
@@ -61,61 +10,112 @@ canvas.style.border = "1px solid black";
 canvas.style.borderRadius = "10px";
 canvas.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
 canvas.style.backgroundColor = "white";
-canvas.style.backgroundImage = "linear-gradient(lightgray 1px, transparent 1px), linear-gradient(90deg, lightgray 1px, transparent 1px)";
-canvas.style.backgroundSize = "20px 20px";
-canvas.style.backgroundRepeat = "repeat";
 
-// Função para iniciar o jogo ao clicar no botão "Adicionar Vértice"
-function iniciarJogo() {
-    numVertices = parseInt(prompt("Escolha o número de vértices (mínimo 3):", 3));
-    if (isNaN(numVertices) || numVertices < 3) {
-        alert("Número inválido! Tente novamente.");
-        return;
+// Função para desenhar a malha no canvas
+function desenharMalha() {
+    ctx.save();
+    ctx.strokeStyle = "lightgray";
+    ctx.lineWidth = 0.5;
+    for (let x = 0; x <= canvas.width; x += 20) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        ctx.stroke();
     }
-    
-    const mensagem1 = "Clique na malha para inserir os vértices.";
-    setTimeout(() => {
-        exibirMensagemTemporaria(mensagem1, "mensagem-vermelha");        
-    }, 500);
-    canvas.addEventListener("click", addVertice);
-    
-    if(vertices.length >= numVertices){
-        canvas.removeEventListener('click', addVertice);
-        document.getElementById('addVertex').disabled = true; // Desabilita o botão "Adicionar Vértice"
+    for (let y = 0; y <= canvas.height; y += 20) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(canvas.width, y);
+        ctx.stroke();
+    }
+    ctx.restore();
+}
+
+// Chama a função para desenhar a malha
+desenharMalha();
+
+// Array de cores para as mensagens temporárias
+const mensagemCores = [ "#f0ff00", "#ff0000", "#00ff00", "#0000ff",
+    "#800000", "#808000", "#008080", "#800220", "#ff8000", "#80ff00",
+    "#00ff", "#ff0080", "#ff8080", "#80f010",
+    "#8080ff", "#9fff80"];
+
+// Função para exibir a mensagem temporária
+function exibirMensagemTemporaria(mensagem, classe = "") {
+    const mensagensDiv1 = document.getElementById("mensagens");
+    if (!mensagensDiv1) return;
+    mensagensDiv1.innerHTML = "";
+    const mensagemTexto = document.createElement("p");
+    mensagemTexto.innerHTML = mensagem;
+    mensagemTexto.style.display = "flex";
+    mensagemTexto.style.justifyContent = "center";
+    mensagemTexto.style.alignItems = "center";
+    mensagemTexto.style.height = "200%";
+    const corAleatoria = mensagemCores[Math.floor(Math.random() * mensagemCores.length)];
+    mensagemTexto.style.background = corAleatoria; // Define a cor de fundo aleatória
+    mensagemTexto.style.boxShadow = "outset 2px 15px 15px #f0f0"; // Adiciona a sombra ao texto
+    mensagemTexto.className = `mensagem-texto ${classe}`;
+    mensagensDiv1.appendChild(mensagemTexto);
+    mensagensDiv1.style.display = "block"; // Garante que a div esteja visível
+}
+
+function fecharMensagemTemporaria() {
+    const mensagensDiv1 = document.getElementById("mensagens");
+    if (mensagensDiv1) {
+        mensagensDiv1.style.display = "none";
+    }
+}
+
+document.getElementById("addVertex").addEventListener("click", () => {
+    iniciarJogo();
+});
+
+function iniciarJogo() {
+    if (numVertices === 0) {
+        numVertices = parseInt(prompt("Escolha o número de vértices (mínimo 3):", 3));
+        if (isNaN(numVertices) || numVertices < 3) {
+            alert("Número inválido! Tente novamente.");
+            numVertices = 0;
+            return;
+        }
+        const mensagem1 = '<span class="blink">Clique na <u>malha</u> para inserir os vértices</span>.';
+        exibirMensagemTemporaria(mensagem1, "mensagem-white");
+        canvas.addEventListener("click", addVertice);
     }
 }
 
 function addVertice(event) {
-    let x = event.offsetX;
-    let y = event.offsetY;
+    let rect = canvas.getBoundingClientRect();
+    let scaleX = canvas.width / rect.width;
+    let scaleY = canvas.height / rect.height;
+    let x = (event.clientX - rect.left) * scaleX;
+    let y = (event.clientY - rect.top) * scaleY;
     vertices.push({ x, y });
     ctx.beginPath();
     ctx.arc(x, y, 5, 0, Math.PI * 2);
     ctx.fill();
     if (vertices.length >= numVertices) {
-        canvas.removeEventListener('click', addVertice);
-        document.getElementById('addVertex').disabled = true; // Desabilita o botão "Adicionar Vértice"        
+        canvas.removeEventListener("click", addVertice);
+        document.getElementById("addVertex").disabled = true;
+        fecharMensagemTemporaria();
+        const mensagem2 = '<span class="blink">Clique no botão <u>Adicionar Aresta</u> para ligar dois pontos.</span>';
+        exibirMensagemTemporaria(mensagem2, "mensagem-azul");
     }
 }
 
-fecharMensagemTemporaria(); // Fecha a mensagem temporária anterior
-
-const mensagem2 = "Clique no botão Adicionar Arestas para ligar dois vértices.";
-setTimeout(() => {
-    exibirMensagemTemporaria(mensagem2, "mensagem-white");
-}, 500);
-
-
-document.getElementById('addEdge').addEventListener('click', function() {
-    canvas.addEventListener('click', selectVertices);
+document.getElementById("addEdge").addEventListener("click", function() {
+    canvas.addEventListener("click", selectVertices);
 });
 
 let selectedVertices = [];
 
 function selectVertices(event) {
-    let x = event.offsetX;
-    let y = event.offsetY;
-    let vertex = vertices.find(v => Math.hypot(v.x - x, v.y - y) < 5);
+    let rect = canvas.getBoundingClientRect();
+    let scaleX = canvas.width / rect.width;
+    let scaleY = canvas.height / rect.height;
+    let x = (event.clientX - rect.left) * scaleX;
+    let y = (event.clientY - rect.top) * scaleY;
+    let vertex = vertices.find(v => Math.hypot(v.x - x, v.y - y) < 10);
     if (vertex && selectedVertices.length < 2) {
         selectedVertices.push(vertex);
         if (selectedVertices.length === 2) {
@@ -127,7 +127,6 @@ function selectVertices(event) {
 function addAresta() {
     let v1 = selectedVertices[0];
     let v2 = selectedVertices[1];
-
     if (!edgeExists(v1, v2) && !linesIntersect(v1, v2)) {
         ctx.beginPath();
         ctx.moveTo(v1.x, v1.y);
@@ -135,27 +134,21 @@ function addAresta() {
         ctx.stroke();
         arestas.push({ v1, v2 });
     }
-
     selectedVertices = [];
-
-    if (arestas.length < numVertices * (numVertices - 1) / 2) {    
-        canvas.addEventListener('click', selectVertices);
+    if (arestas.length < numVertices * (numVertices - 1) / 2) {
+        canvas.addEventListener("click", selectVertices);
     } else {
-        canvas.removeEventListener('click', selectVertices);
-        document.getElementById('addEdge').disabled = true;
-
-        fecharMensagemTemporaria(); // Fecha a mensagem temporária anterior
-
-        const mensagem3 = "Clique no botão Pintar Elementos para pintar os triângulos.";
-        setTimeout(() => {
-            exibirMensagemTemporaria(mensagem3, "mensagem-azul");
-        }, 500);
-    }    
+        canvas.removeEventListener("click", selectVertices);
+        document.getElementById("addEdge").disabled = true;
+        fecharMensagemTemporaria();
+        const mensagem3 = '<span class="blink">Clique no <u>botão Pintar Elementos </u>para colorir a figura.</span> ';
+        exibirMensagemTemporaria(mensagem3, "mensagem-azul");
+    }
 }
 
 function edgeExists(v1, v2) {
-    return arestas.some(aresta => 
-        (aresta.v1 === v1 && aresta.v2 === v2) || 
+    return arestas.some(aresta =>
+        (aresta.v1 === v1 && aresta.v2 === v2) ||
         (aresta.v1 === v2 && aresta.v2 === v1)
     );
 }
@@ -176,18 +169,15 @@ function doLinesIntersect(p1, p2, p3, p4) {
     return (ccw(p1, p3, p4) !== ccw(p2, p3, p4)) && (ccw(p1, p2, p3) !== ccw(p1, p2, p4));
 }
 
-ctx.lineWidth = 3; // Aumentar a espessura da aresta
+ctx.lineWidth = 3;
 
 function areAllVerticesConnected() {
     if (vertices.length === 0) return true;
-
     let visited = new Set();
     let stack = [vertices[0]];
-
     while (stack.length > 0) {
         let vertex = stack.pop();
         visited.add(vertex);
-
         arestas.forEach(aresta => {
             if (aresta.v1 === vertex && !visited.has(aresta.v2)) {
                 stack.push(aresta.v2);
@@ -196,6 +186,11 @@ function areAllVerticesConnected() {
             }
         });
     }
-
     return visited.size === vertices.length;
 }
+
+// Adiciona evento ao botão "Pintar Elementos"
+document.getElementById("pintarElementos").addEventListener("click", function() {
+    fecharMensagemTemporaria(); // Fecha a mensagem anterior
+    pintar(); // Chama a função pintar do arquivo pintar.js
+});
