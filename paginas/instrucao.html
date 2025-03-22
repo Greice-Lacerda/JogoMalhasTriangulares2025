@@ -1,21 +1,44 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Triangularizando e Aprendendo</title>
+    <link rel="stylesheet" href="../estilos/estilo-instrucoes.css" />
     <link rel="stylesheet" href="../estilos/estilos-comuns.css" />
     <link rel="stylesheet" href="../estilos/estilo-index.css" />
-    <link rel="stylesheet" href='../estilos/estilo-instrucoes.css'>
-    <meta name="description" content="Um jogo educativo para aprender sobre triangulação.">
-    <meta name="keywords" content="triangulação, educação, jogo, geometria">
-</head>
-<body>
-    <header>
-        <h1>Triangularizando e Aprendendo</h1>
-    </header>
+    <meta
+      name="description"
+      content="Um jogo educativo para aprender sobre triangulação."/>
+    <meta name="keywords" content="triangulação, educação, jogo, geometria" />
+  </head>
+  <body>
+  <div class="rotating-element">
+    <script>              
+          function handleOrientationChange() {
+              const element = document.querySelector('.rotating-element');
+              if (window.innerHeight > window.innerWidth) {
+                  // Portrait mode
+                  element.style.animation = 'rotate 5s linear infinite';
+              } else {
+                  // Landscape mode
+                  element.style.animation = 'rotate 3s linear infinite';
+              }
+          }
+
+          window.addEventListener('resize', handleOrientationChange);
+          window.addEventListener('orientationchange', handleOrientationChange);
+
+          // Initial check
+          handleOrientationChange();
+      </script>
+      </div>
+        <header>
+            <h1>Triangularizando e Aprendendo</h1>
+        </header>
     <main id="game-container">
     <section>
+      <aside id="orientacao">
         <fieldset class="orientacao">
                     <div>
                     <h3 id="tfase">Fase 1 – Construção de Polígonos</h3>
@@ -47,7 +70,7 @@
         <aside id="orientacao">
             <fieldset class="orientacao">
                 <div id="img">
-                  <div id="i3">
+                  <div id="i2">
                     <fieldset class="controls2">
                     <button class="controls2" onclick="iniciarJogo()">Iniciar jogo</button>
                         <script>
@@ -62,18 +85,15 @@
                             }
                         </script>
                     </fieldset>
-                </div>
-                </div>
-            </fieldset>
-        </aside>
-        
-        </main>
-        <br>
-    <footer>
-        <fieldset id="credits">
-            <legend>Créditos</legend>
-            Criado por Pablo e Greice em 2025
+            </div>
+          </div>
         </fieldset>
+      </aside>
+      <section>
+        </main>
+    <br />
+    <footer>
+        Criado por Pablo e Greice em 2025        
     </footer>
     </body>
 </html>

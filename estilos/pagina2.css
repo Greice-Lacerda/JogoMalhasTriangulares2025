@@ -1,10 +1,5 @@
 /* Estilo index */
 
-/* Configurações gerais */
-body {
-  font-size: 1rem; /* Usando rem para ajustar com base no tamanho da fonte raiz */
-}
-
 /* Container do jogo */
 #game-container {
   display: flex;
@@ -19,9 +14,10 @@ body {
   margin-right: 2rem; /* Usando rem para margens */
   padding: 6px;
   border: 1px solid #ccc;
-  background-color: transparent;
+  background-color: rgba(250, 250, 249, 0.4);
   width: 33.125rem; /* Usando rem para largura */
   height: 67vh;
+  box-shadow: 20px 20px 8px #230f07;
 }
 
 /* Títulos */
@@ -51,14 +47,15 @@ h3 {
 h4,
 p {
   text-align: justify;
-  font-size: 0.875rem;
+  font-size: 14px;
   padding-left: 0.625rem;
+  font-style: bold;
 }
 
 li,
 ol {
   text-align: left;
-  font-size: 0.875rem;
+  font-size: 14px;
   margin-left: 0.3125rem;
 }
 
@@ -84,6 +81,7 @@ ol {
   padding: 10px;
   border: solid outset 0.3125rem #ccc;
   background-color: transparent;
+  box-shadow: 5px 5px 8px #070302;
 }
 
 .controls2 button {
@@ -120,7 +118,7 @@ ol {
 
 /* Texto especial */
 #tbem {
-  margin: 0.3125rem;
+  margin: 2px;
   font-size: 1.5rem;
   text-align: center;
   color: transparent;

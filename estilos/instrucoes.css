@@ -1,0 +1,28 @@
+.orientacao-i {  
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 2%; /* Usando rem para margens */
+  padding: 10%; /* Espaçamento entre os itens */
+  border: 1px solid #ccc;
+  background-color: rgba(250, 250, 249, 0.4);
+  width: 100%; /* Usando rem para largura */
+  height: 100%;
+  box-shadow: 20px 20px 8px #230f07;
+}
+
+
+/* Ajuste de zoom para 50% */
+@media (max-width: 1200px) {  
+  .orientacao-i {
+    zoom: 1;
+  }
+}
+
+/* Ajuste de zoom para 50% */
+@media (min-width: 1200px) {  
+  .orientacao-i {
+    zoom: 1;
+  }
+}
+
