@@ -592,9 +592,7 @@ table, td, th {
   margin: 100px;
   height: 740px;
   padding: 5px;
-  border-collapse: separate;
-  
-  border: #0b0e52 solid 5px;
+  border-collapse: separate; 
   border-radius: 10px;
 }
 

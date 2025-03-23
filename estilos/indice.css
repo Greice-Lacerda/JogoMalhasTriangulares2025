@@ -1,6 +1,14 @@
-#table-indice, #td-indice, #th-indice {
+.table-indice, td, tr{
   margin: 15px;
   height: 40px;
+  padding: 5px;
+  border-collapse: separate;
+  border-radius: 10px;
+}
+
+.table1, td, th {
+  margin: 100px;
+  height: 740px;
   padding: 5px;
   border-collapse: separate;
   border-radius: 10px;
@@ -17,7 +25,7 @@
 #corpo-indice {
   margin: 25px auto;
   width: 1200px;
-  padding: 10px auto;
+  padding: 10px; /* Removido 'auto' */
   position: relative;
   height: 900px;
   display: flex;
@@ -97,26 +105,35 @@
   animation: spin 5s linear infinite;
 }
 
-
-/* Ajuste de zoom para 100% */
-@media (min-width: 600px) {
-  #table-indice, .imagem-indice{
-      transform: scale(1);
-    }
+/* Ajuste de zoom para 50% */
+@media (max-width: 1200px) {
+  .table1, .tr, .corpo3 {
+    border-spacing: 120px 120px;
+    transform: scale(0.5); /* Ajustado para 50% */
+    transform-origin: top;
   }
-  
-
-/* Ajuste de zoom para 100% */
-@media (min-width: 600px) {
-#section-indice{
-    transform: scale(0.8);
+  .table-indice{
+    border-spacing: 120px 100px;
+    transform: scale(1.3); /* Aumenta o tamanho das imagens */
+    transform-origin: center;
   }
+
+  .imagens-indice img {
+    transform: scale(1.8); /* Aumenta o tamanho das imagens */
+    transform-origin: center;
+  }
+
 }
 
 /* Ajuste de zoom para 100% */
 @media (min-width: 1201px) {
-  #corpo-indice, #corpo-indice:hover {
-    transform: scale(1);
+  .corpo3 {
+    transform: scale(1); /* Ajustado para 100% */
+    transform-origin: center;
+  }
+  .imagens-indice img {
+    transform: scale(1); /* Mantém o tamanho original das imagens */
+    transform-origin: center;
   }
 }
 
