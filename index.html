@@ -4,43 +4,52 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Triangularizando e Aprendendo</title>
-    <link rel="stylesheet" href="../estilos/index.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Geist+Mono:wght@100..900&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Parisienne&family=Playwrite+HR+Lijeva:wght@100..400&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="estilos/estilos-comuns.css">
-    <link rel="stylesheet" href="estilos/estilo-index.css">
+    <link rel="stylesheet" href="estilos/comuns.css">
+    <link rel="stylesheet" href="estilos/index.css">
 </head>
-    <header>
-      <h1>Triangularizando e Aprendendo</h1>
-    </header>
 <body class="corpo-i">
+    <header>
+        <h1>Triangularizando e Aprendendo</h1>
+    </header>
     <main>
         <section> 
-        <table>
-            <tr>
-                <td><div id="esquerda"><img src="imagens\triangulo.gif"></td>
-                <td><div id="esquerda-baixo"><img src="imagens\cubo.gif"></td>               
-                <td> <div id="corpo3">  
-                    <h3 id="tbem">Bem-vindo ao Jogo de Construção de Polígonos e Sólidos!</h3>
-                        <p>
-                        Neste jogo, você terá a oportunidade de criar figuras geométricas
-                        interativas, começando com polígonos em 2D e avançando para
-                        sólidos em 3D. O jogo é dividido em fases, cada uma com desafios
-                        únicos e ferramentas para ajudar na construção e personalização
-                        das figuras. Como Jogar:
-                        </p>
-                        <fieldset class="controles">
-                            <button id="jogar" onclick="window.location.href='../paginas/pagina2.html'">Vamos Jogar</button>
-                            <button id="Sair" onclick="window.location.href='https:\\www.google.com.br'">Sair do jogo</button>
-                        </fieldset>
-                    </div> 
-                </td>
-                <td><div id="direita"><img src="imagens\flor.gif"></td>
-                <td><div id="direita-baixo"><img src="imagens\malhas.gif"></td>
-            </tr>
-        </table>
-          </section>
+                <table>
+                    <tr>
+                        <td>
+                        <div class="imagem-container">
+                        <img id="cil" src="imagens/cilindro.gif" onclick="window.open('https://mir-s3-cdn-cf.behance.net/project_modules/1400/1ca2b354214763.5952b9910f655.gif', '_blank')" alt="Cilindro">
+                        <img src="imagens/cubo1.gif" onclick="window.open('https://i.pinimg.com/originals/37/a6/81/37a6810b82688f726bbb2774909f5d8e.gif', '_blank')" alt="Cubo">
+                        </div>                        
+                        </td>
+                            <td>
+                                <div id="corpo3">  
+                                    <h3 id="tbem">Bem-vindo ao Jogo de Construção de Polígonos e Sólidos!</h3>
+                                    <p class="p2">
+                                        Neste jogo, você terá a oportunidade de criar figuras geométricas
+                                        interativas, começando com polígonos em 2D e avançando para
+                                        sólidos em 3D. O jogo é dividido em fases, cada uma com desafios
+                                        únicos e ferramentas para ajudar na construção e personalização
+                                        das figuras. Ao final de cada fase, você poderá salvar a figura
+                                        criada e compartilhar com seus amigos.
+                                    </p>
+                                    <fieldset class="controles">
+                                        <button id="jogar" onclick="window.location.href='../paginas/indice.html'">Vamos Jogar?</button>
+                                        <button id="Sair" onclick="window.location.href='https://www.google.com.br'">Sair do jogo</button>
+                                    </fieldset>
+                                </div>                            
+                            </td>
+                        <td>
+                            <div class="imagem-container">
+                                <img src="../imagens/triangulo2.gif" onclick="window.open('https://i.pinimg.com/originals/93/56/86/935686dba14bf453dedd6243591dbda4.gif', '_blank')" alt="Triângulo 2">
+                                <img src="../imagens/triangulo.gif" onclick="window.open('https://i.pinimg.com/originals/07/dd/d6/07ddd6eb7df73a17d60278618aaae08d.gif', '_blank')" alt="Triângulo">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+        </section>
     </main>
     <footer>
         Criado por Greice e Pablo em 2025.
