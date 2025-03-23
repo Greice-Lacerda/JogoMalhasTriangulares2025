@@ -588,7 +588,7 @@ box-shadow: #000 25px 20px 15px;
 animation: spin 5s linear infinite;
 }
 
-table, td, th {
+table, td, tr {
   margin: 100px;
   height: 740px;
   padding: 5px;
