@@ -1,0 +1,210 @@
+#fase-1{
+    text-align: justify; 
+    font-size: 40px;
+    margin: 10px 130px;
+    line-height: 1.3;
+}
+
+#div-ins{
+    font-size: 45px;
+    text-align: justify;
+    margin: 10px 100px 2px;
+    line-height: 1.3;
+}
+
+.b-ins{
+    text-align: justify; 
+    margin: 10px auto;
+    color: #040111;
+    text-shadow: 1px 2px 3px #2746aa;
+}
+
+#tbem-ins{
+    margin: 8px;
+    text-align: center; 
+    font-size: 75px;
+    color: #040111;
+    text-shadow: 1px 2px 3px #2746aa;
+}
+
+#corpo4{
+      margin: 8px;
+      width: 1650px;
+      position: relative;
+      height: 1500px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      background-color: rgba(10, 2, 2, 0.4);
+      border: 3px solid red;
+      border-radius: 10px;
+      color: white;
+    }
+    
+#corpo4:hover {
+    transform: scale(1.2);
+    top: 50px;
+    width: 2000px;
+    height: 85%;
+    font-size: 50%;
+    border: 20px double #f4f3f8;
+    padding-inline: 20px;
+    background: radial-gradient(
+          rgba(255, 255, 255, 0) 0,
+          rgba(255, 255, 255, 0.15) 30%,
+          rgba(236, 235, 235, 0.3) 32%,
+          rgba(255, 255, 255, 0) 33%
+        )
+        0 0,
+      radial-gradient(
+          rgba(255, 255, 255, 0) 0,
+          rgba(255, 255, 255, 0.1) 11%,
+          rgba(255, 255, 255, 0.3) 13%,
+          rgba(255, 255, 255, 0) 14%
+        )
+        0 0,
+      radial-gradient(
+          rgba(255, 255, 255, 0) 0,
+          rgba(255, 255, 255, 0.2) 17%,
+          rgba(255, 255, 255, 0.43) 19%,
+          rgba(255, 255, 255, 0) 20%
+        )
+        0 110px,
+      radial-gradient(
+          rgba(255, 255, 255, 0) 0,
+          rgba(255, 255, 255, 0.2) 11%,
+          rgba(255, 255, 255, 0.4) 13%,
+          rgba(255, 255, 255, 0) 14%
+        ) -130px -170px,
+      radial-gradient(
+          rgba(255, 255, 255, 0) 0,
+          rgba(255, 255, 255, 0.2) 11%,
+          rgba(255, 255, 255, 0.4) 13%,
+          rgba(255, 255, 255, 0) 14%
+        )
+        130px 370px,
+      radial-gradient(
+          rgba(255, 255, 255, 0) 0,
+          rgba(255, 255, 255, 0.1) 11%,
+          rgba(255, 255, 255, 0.2) 13%,
+          rgba(255, 255, 255, 0) 14%
+        )
+        0 0,
+      linear-gradient(
+        45deg,
+        #343702 0%,
+        #184500 20%,
+        #187546 30%,
+        #006782 40%,
+        #0b1284 50%,
+        #760ea1 60%,
+        #83096e 70%,
+        #840b2a 80%,
+        #b13e12 90%,
+        #e27412 100%
+      );
+    background-size: 470px 470px, 970px 970px, 410px 410px, 610px 610px,
+      530px 530px, 730px 730px, 100% 100%;
+    background-color: #840b2a;
+    background-blend-mode: overlay;
+    animation: spin 5s linear infinite;
+}
+
+/*controles*/
+.contoles-ins {
+    position: absolute;
+    bottom: 45px;
+    margin: 50px;
+    width: 1200px;
+    height: 100px;
+    display: flex;
+    flex-direction: row; /* Correção da direção */
+    align-items: flex-start;
+    background-color: transparent;
+    box-shadow: #000 25px 20px 20px;
+    border-radius: 10px;
+  }
+  
+.contoles-ins button {  
+    border: outset 10px rgb(168, 168, 223);
+    padding: 5px 5px;
+    font-size: 40px;
+    width: 320px;
+    height: 80px;
+    border-radius: 10px;
+    margin: 20px auto;
+    font-size: 30px;
+    font-weight: bold; /* Ajuste para negrito */
+    background: linear-gradient(
+    45deg,
+    #006782 8%,
+    #0b1284 10%,
+    #760ea1 27%,
+    #83096e 75%,
+    #f8f7f5 100%
+  );
+  box-shadow: 25px 20px 20px rgba(0, 0, 0, 0.9);
+  transition: 0.2s;
+  color: white;
+  }
+  
+  .contoles-ins button:hover {    
+    background-color: lightseagreen;
+    transform: scale(1.1);
+  }
+  
+  .contoles-ins button:active {
+    transform: scale(0.95);
+  }
+  
+/* Ajuste de zoom para 50% */
+@media (max-width: 1200px) {
+.contoles-ins {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      margin-left: 1.5625rem;
+      margin-right: 1.5625rem;
+      padding: 0.625rem;
+      border: solid outset 0.3125rem #ccc;
+      background-color: transparent;
+    }
+}
+    
+/* Ajuste de zoom para 100% */
+@media (min-width: 1201px) {
+ .contoles-ins {
+        position: absolute;
+        bottom: 120px;
+        width: 30%;
+        margin-left: 950px;
+        align-items: center;
+        flex-direction: line;
+      }
+    }
+        
+/* Ajuste de zoom para 50% */
+@media (max-width: 1200px) {
+#corpo4, #fase-1, .p2, .fase-1, .b-ins, #tbem { 
+      font-size: 100px;
+      zoom: 0.5;
+      line-height: 2;
+    }
+}
+    
+/* Ajuste de zoom para 100% */
+@media (min-width: 1201px) {
+#corpo4{
+    width: 100%;
+    margin-top: 1px;
+    font-size: 45px;
+    zoom: 0.66;
+    }
+
+    #corpo4:hover {
+        top:10px;
+    }
+ }
+    
+    

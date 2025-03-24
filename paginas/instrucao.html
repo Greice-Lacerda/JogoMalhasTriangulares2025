@@ -1,99 +1,76 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Triangularizando e Aprendendo</title>
-    <link rel="stylesheet" href="../estilos/estilo-instrucoes.css" />
-    <link rel="stylesheet" href="../estilos/estilos-comuns.css" />
-    <link rel="stylesheet" href="../estilos/estilo-index.css" />
-    <meta
-      name="description"
-      content="Um jogo educativo para aprender sobre triangulação."/>
-    <meta name="keywords" content="triangulação, educação, jogo, geometria" />
-  </head>
-  <body>
-  <div class="rotating-element">
-    <script>              
-          function handleOrientationChange() {
-              const element = document.querySelector('.rotating-element');
-              if (window.innerHeight > window.innerWidth) {
-                  // Portrait mode
-                  element.style.animation = 'rotate 5s linear infinite';
-              } else {
-                  // Landscape mode
-                  element.style.animation = 'rotate 3s linear infinite';
-              }
-          }
-
-          window.addEventListener('resize', handleOrientationChange);
-          window.addEventListener('orientationchange', handleOrientationChange);
-
-          // Initial check
-          handleOrientationChange();
-      </script>
-      </div>
-        <header>
-            <h1>Triangularizando e Aprendendo</h1>
-        </header>
-    <main id="game-container">
-    <section>
-      <aside id="orientacao">
-        <fieldset class="orientacao">
-                    <div>
-                    <h3 id="tfase">Fase 1 – Construção de Polígonos</h3>
-                        <p id="tbem"><b id="tbem">Bem-vindos ao jogo!</p></b>
-                        <p>Nesta primeira fase, vamos explorar a construção de polígonos utilizando vértices e arestas. 
-                        Mas antes de começarmos, vamos refletir:
-                        </p> 
-                        <ul>
-                            <div id="questao">
-                            <li>O que é um polígono?</li>
-                            <li>Você consegue identificar polígonos ao seu redor, 
-                            como na sua casa ou na escola?</li>
-                            <li>Quantos lados um polígono precisa ter para ser considerado 
-                            uma figura fechada?</li>
-                                                           
-                        </ul>      
-                            <p><b>Objetivo:</b>                         
-                            Nesta fase, você poderá adicionar vértices dentro do espaço de 
-                            jogo e conectá-los com arestas para formar diferentes polígonos. 
-                            Ao concluir sua construção, poderá pintar os elementos e acessar
-                            os desafios.</p>
-                        
-                            <p><b>Desafio:</b> Você consegue formar diferentes tipos de triângulos ou 
-                            quadriláteros? Como você pode classificá-los? <strong>Agora, é sua vez!</strong>
-                            Mãos à obra e divirta-se explorando os polígonos! </p> 
-                </div>
-            </fieldset>   
-            </section>
-        <aside id="orientacao">
-            <fieldset class="orientacao">
-                <div id="img">
-                  <div id="i2">
-                    <fieldset class="controls2">
-                    <button class="controls2" onclick="iniciarJogo()">Iniciar jogo</button>
-                        <script>
-                            function iniciarJogo() {
-                            window.location.href ="../paginas/fase1.html"; // Redireciona para a página fase1.html
-                            }
-                        </script>
-                    <button class="controls2" onclick="sairJogo()">Sair do jogo</button>
-                        <script>
-                            function sairJogo() {
-                            window.location.href = 'http://www.google.com/'; // Sai do jogo
-                            }
-                        </script>
-                    </fieldset>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bree+Serif&family=Geist+Mono:wght@100..900&family=Lobster+Two:ital,wght@0,400;0,700;1,400;1,700&family=Parisienne&family=Playwrite+HR+Lijeva:wght@100..400&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../estilos/comuns.css">
+    <link rel="stylesheet" href="../estilos/index.css">
+   <link rel="stylesheet" href="../estilos/instrucoes.css">
+</head>
+<body class="corpo-i">
+    <header>
+        <h1>Triangularizando e Aprendendo</h1>
+    </header>
+    <main>
+        <section> 
+                <table>
+                    <tr>
+                        <td>
+                        <div class="imagem-container">
+                        <img id="cil" src="../imagens/cilindro.gif" onclick="window.open('https://mir-s3-cdn-cf.behance.net/project_modules/1400/1ca2b354214763.5952b9910f655.gif', '_blank')" alt="Cilindro">
+                        <img src="../imagens/cubo1.gif" onclick="window.open('https://i.pinimg.com/originals/37/a6/81/37a6810b82688f726bbb2774909f5d8e.gif', '_blank')" alt="Cubo">
+                        </div>                        
+                        </td>
+                            <td>
+                                <div id="corpo4">  
+                                    <h3 id="tbem-ins">Fase 1 – Construção de Polígonos</h3>
+                                    <p class="p2">
+                                        Nesta primeira fase, vamos explorar a construção de polígonos utilizando vértices e arestas. 
+                                        Mas antes de começarmos, vamos refletir:
+                                        <div id="div-ins">
+                                            <ul>
+                                            <li>O que é um polígono?</li>
+                                            <li>Você consegue identificar polígonos ao seu redor, 
+                                            como na sua casa ou na escola?</li>
+                                            <li>Quantos lados um polígono precisa ter para ser considerado 
+                                            uma figura fechada?</li>
+                                            </ul>      
+                                        </div>
+                                        <p class="p2"><u>Objetivo:</u>                         
+                                          Nesta fase, você poderá adicionar vértices dentro do espaço de 
+                                          jogo e conectá-los com arestas para formar diferentes polígonos. 
+                                          Ao concluir sua construção, poderá pintar os elementos e acessar
+                                          os desafios.</p>
+                                    
+                                        <p class="p2"><u>Desafio:</u> Você consegue formar diferentes tipos de triângulos ou 
+                                          quadriláteros? Como você pode classificá-los? <strong>Agora, é sua vez!</strong>
+                                          Mãos à obra e divirta-se explorando os polígonos! </p> 
+                                        </p>
+                                    </p>                                    
+                                </div>                            
+                            </td>
+                        <td>
+                            <div class="imagem-container">
+                                <img src="../imagens/triangulo2.gif" onclick="window.open('https://i.pinimg.com/originals/93/56/86/935686dba14bf453dedd6243591dbda4.gif', '_blank')" alt="Triângulo 2">
+                                <img src="../imagens/triangulo.gif" onclick="window.open('https://i.pinimg.com/originals/07/dd/d6/07ddd6eb7df73a17d60278618aaae08d.gif', '_blank')" alt="Triângulo">
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+        </section>
+            <div>
+            <fieldset class="contoles-ins">
+                <button id="jogar" onclick="window.location.href='../paginas/fase1.html'">Iniciar o Jogo</button>
+                <button id="Sair" onclick="window.location.href='https://www.google.com.br'">Sair do jogo</button>
+            </fieldset>
             </div>
-          </div>
-        </fieldset>
-      </aside>
-      <section>
-        </main>
-    <br />
+    </main>
     <footer>
-        Criado por Pablo e Greice em 2025        
+        Criado por Greice e Pablo em 2025.
     </footer>
-    </body>
+</body>
 </html>

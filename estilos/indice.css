@@ -133,8 +133,8 @@
     }
 
   .ind-controles, #ind-contoles {
-      top: 970px;
-      padding-bottom: 200px;
+      top: 995px;
+      padding-bottom: 205px;
       width: 100%;
       position: relative;
       transform: scale(1); /* Ajustado para 100% */
@@ -150,8 +150,8 @@
 
 /* Texto especial */
 #t-indice {
-  margin: 40px auto;
-  font-size: 40px;
+  margin: 20px auto;
+  font-size: 50px;
   text-align: center;
   color: transparent;
   background-clip: text;
@@ -187,7 +187,7 @@
 
 .b-indice {
   color: #040111;
-  font-size: 40px;
+  font-size: 50px;
   text-shadow: 1px 2px 3px #2746aa;
 }
 
