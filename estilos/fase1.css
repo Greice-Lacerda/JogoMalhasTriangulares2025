@@ -541,3 +541,37 @@ legend {
 fieldset{
   height: 450px;
 }
+
+/* Ajuste de zoom para o seletor de cores */
+@media (max-width: 1200px) {
+  .mensagensDiv2 {
+    width: 100%;
+    height: 100%;
+    zoom: 1;
+  }
+ }
+ 
+ @media (min-width: 1201px) {
+  .mensagensDiv2 {
+    width: 100%;
+    height: 100%;
+    zoom: 1;
+  }
+ }
+
+ /* Ajuste de zoom para o canvas */
+@media (max-width: 1200px) {
+  #gameCanvas {
+    width: 100%;
+    height: 100%;
+    zoom: 1;
+  }
+ }
+ 
+ @media (min-width: 1201px) {
+  #gameCanvas {
+    width: 100%;
+    height: 100%;
+    zoom: 1;
+  }
+ }

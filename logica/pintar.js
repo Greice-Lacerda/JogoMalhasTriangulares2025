@@ -1,12 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("gameCanvas");
   const ctx = canvas.getContext("2d");
-
   let corSelecionada = "#f0ff00"; // Cor padrão
   let pinturaConcluida = false;
   let selectedVerticesForTriangle = [];
   let triangles = [];
-
   const cores = [
     "#f0ff00", "#ff0000", "#00ff00", "#0000ff", "#ff00ff", "#00ffff",
     "#800000", "#808000", "#008080", "#800080", "#ff8000", "#80ff00",
@@ -24,29 +22,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const rect = canvas.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
-
     if (!vertices) return; // Verifica se vertices está definido
-
     const vertex = vertices.find((v) => Math.hypot(v.x - x, v.y - y) < 10);
-
     if (vertex && !selectedVerticesForTriangle.includes(vertex)) {
       selectedVerticesForTriangle.push(vertex);
-
       if (selectedVerticesForTriangle.length === 3) {
         paintTriangle();
       }
     }
-
     // Fecha a mensagem temporária ao clicar no vértice
     const mensagensDiv1 = document.getElementById("mensagens");
     if (mensagensDiv1) {
+      mensagensDiv1.style.width = "350px";
+      mensagensDiv1.style.zoom = window.innerWidth <= 1200 ? 0.5 : 1;
       mensagensDiv1.style.display = "none";
     }
   }
 
   function paintTriangle() {
     const [v1, v2, v3] = selectedVerticesForTriangle;
-
     ctx.fillStyle = corSelecionada;
     ctx.beginPath();
     ctx.moveTo(v1.x, v1.y);
@@ -55,17 +49,15 @@ document.addEventListener("DOMContentLoaded", () => {
     ctx.closePath();
     ctx.fill();
     ctx.stroke();
-
     triangles.push({ v1, v2, v3 });
-
     selectedVerticesForTriangle = [];
-
     if (isFullyPainted()) {
       pinturaConcluida = true;
-
       document.getElementById("addVertex").disabled = true;
       document.getElementById("pintarElementos").disabled = true;
       canvas.removeEventListener("click", selecionarVertice);
+      canvas.addEventListener("click", selecionarVertice);
+      canvas.style.zoom = window.innerWidth <= 1200 ? 0.5 : 1;
       exibirMensagemPinturaConcluida();
     }
   }
@@ -77,7 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function exibirMensagemTemporaria(mensagem) {
     const mensagensDiv1 = document.getElementById("mensagens");
     if (!mensagensDiv1) return;
-
     mensagensDiv1.style.display = "flex";
     mensagensDiv1.style.justifyContent = "center";
     mensagensDiv1.style.fontSize = "20px";
@@ -85,9 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
     mensagensDiv1.style.width = "100%";
     mensagensDiv1.style.height = "100%";
     mensagensDiv1.style.background = "linear-gradient(to right, #ff7e5f, #feb47b)";
-
     mensagensDiv1.textContent = mensagem;
-
     setTimeout(() => {
       mensagensDiv1.style.display = "none";
     }, 3000);
@@ -95,25 +84,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function exibirMensagemComSeletor(mensagem) {
     const mensagensDiv1 = document.getElementById("mensagens");
-
     if (!mensagensDiv1) {
       console.error("Elemento com id 'mensagens' não encontrado.");
       return;
     }
-
     mensagensDiv1.innerHTML = "";
-
     const mensagemTexto = document.createElement("p");
     mensagemTexto.textContent = mensagem;
     mensagemTexto.className = "mensagemTexto";
     mensagemTexto.style.paddingBottom = "5px"; // Adiciona padding abaixo da mensagem
-
     mensagensDiv1.appendChild(mensagemTexto);
-
     const tabela = document.createElement("table");
     tabela.className = "color-table";
     let row;
-
     cores.forEach((cor, index) => {
       if (index % 5 === 0) {
         row = tabela.insertRow();
@@ -124,14 +107,12 @@ document.addEventListener("DOMContentLoaded", () => {
       button.style.backgroundColor = cor;
       button.addEventListener("click", () => {
         corSelecionada = cor;
-        canvas.addEventListener("click", selecionarVertice);        
+        canvas.addEventListener("click", selecionarVertice); 
         document.getElementById("addVertex").disabled = true;
       });
       cell.appendChild(button);
     });
-
     mensagensDiv1.appendChild(tabela);
-
     mensagensDiv1.className = "mensagensDiv2";
     mensagensDiv1.style.display = "flex";
     mensagensDiv1.style.flexDirection = "column"; // Alinha a mensagem e a tabela em coluna
@@ -145,7 +126,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function exibirMensagemPinturaConcluida() {
     const mensagensDiv1 = document.getElementById("mensagens");
     if (!mensagensDiv1) return;
-
     mensagensDiv1.style.display = "flex";
     mensagensDiv1.style.justifyContent = "center";
     mensagensDiv1.style.fontSize = "20px";
