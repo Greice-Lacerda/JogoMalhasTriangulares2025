@@ -1,119 +1,296 @@
-:root {
-  --main-bg-color: white;
-  --main-border-color: #ccc;
-  --main-border-radius: 10px;
-  --main-box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  --main-font-size: 16px;
-  --button-bg-color: green;
-  --button-hover-bg-color: lightgreen;
-  --button-active-scale: 0.95;
-  --canvas-width: 500px;
-  --canvas-height: 400px;
+body {
+  font-size: 14px; /* Usando rem para ajustar com base no tamanho da fonte raiz */
+  margin-bottom: 2px;
+  margin-top: 1px;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: linear-gradient(rgb(231, 72, 231), white);
+  background-clip: padding-box;
+  padding: 5px;
+  overflow: hidden;
+  line-height: 1.6;
 }
 
+body::before {
+content: "";
+background-image: url("../imagens/Logo.png");
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+opacity: 0.4;
+position: absolute;
+margin: auto;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: -1; /* Coloca a imagem atrás do conteúdo */
+}
+
+/* Ajuste de zoom para 50% */
+@media (max-width: 1200px) {
+  body {
+    zoom: 0.5;
+  }
+}
+
+/* Ajuste de zoom para 100% */
+@media (min-width: 1201px) {
+  body {
+    zoom: 1;
+  }
+}
+
+/* Container do jogo */
 #game-container {
+  top: 25px;
   display: flex;
   flex-direction: row;
 }
 
-/* Ajuste para zoom de 50% */
+/* Ajuste de zoom para 50% */
 @media (max-width: 1200px) {
-  #gameCanvas {
-    width: var(--canvas-width);
-    height: var(--canvas-height);
-    background: var(--main-bg-color);
-    border: 1px solid black;
-    border-radius: var(--main-border-radius);
-    box-shadow: var(--main-box-shadow);
-    background-image: linear-gradient(lightgray 1px, transparent 1px), linear-gradient(90deg, lightgray 1px, transparent 1px);
-    background-size: 1px 1px; /* Reduz o tamanho da malha para maior densidade */
-    background-repeat: repeat;
+  #game-container {
+    position: absolute;
+    margin-top: 80px;
+    flex-direction: line;
   }
 }
 
-/* Ajuste para zoom de 100% */
-@media (min-width: 1201px) {
-  #gameCanvas {
-    width: var(--canvas-width);
-    height: var(--canvas-height);
-    background: var(--main-bg-color);
-    border: 1px solid black;
-    border-radius: var(--main-border-radius);
-    box-shadow: var(--main-box-shadow);
-    background-image: linear-gradient(gray 1px, transparent 1px), linear-gradient(90deg, gray 1px, transparent 1px);
-    background-size: 20px 20px;
-    background-repeat: repeat;
+/* Ajuste de zoom para 100% */
+@media (min-width: 1201px) {  
+  #game-container {
+    margin-top: 70px;
+    position: absolute;
+    flex-direction: line;
   }
 }
 
-canvas {
-  cursor: default;
+/* Ajuste de zoom para 50% */
+@media (max-width: 1200px) {  
+  #img {
+    width: 100%;
+    height: 100%;
+  }
 }
 
-canvas:active {
-  cursor: pointer;
+header {
+  top: 0px;
+  position: absolute;
+  padding: 8px;
+  text-align: center;
+  width: 100%;
+  font-size: 50px;
+  color: #ccc;
+  box-shadow: inset 0 0 10px #000;
+  background: radial-gradient(
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.15) 30%,
+        rgba(255, 255, 255, 0.3) 32%,
+        rgba(255, 255, 255, 0) 33%
+      )
+      0 0,
+    radial-gradient(
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.1) 11%,
+        rgba(255, 255, 255, 0.3) 13%,
+        rgba(255, 255, 255, 0) 14%
+      )
+      0 0,
+    radial-gradient(
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.2) 17%,
+        rgba(255, 255, 255, 0.43) 19%,
+        rgba(255, 255, 255, 0) 20%
+      )
+      0 110px,
+    radial-gradient(
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.2) 11%,
+        rgba(255, 255, 255, 0.4) 13%,
+        rgba(255, 255, 255, 0) 14%
+      ) -130px -170px,
+    radial-gradient(
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.2) 11%,
+        rgba(255, 255, 255, 0.4) 13%,
+        rgba(255, 255, 255, 0) 14%
+      )
+      130px 370px,
+    radial-gradient(
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.1) 11%,
+        rgba(255, 255, 255, 0.2) 13%,
+        rgba(255, 255, 255, 0) 14%
+      )
+      0 0,
+    linear-gradient(
+      45deg,
+      #343702 0%,
+      #184500 20%,
+      #187546 30%,
+      #006782 40%,
+      #0b1284 50%,
+      #760ea1 60%,
+      #83096e 70%,
+      #840b2a 80%,
+      #b13e12 90%,
+      #e27412 100%
+    );
+  background-size: 470px 470px, 970px 970px, 410px 410px, 610px 610px,
+    530px 530px, 730px 730px, 100% 100%;
+  background-color: #840b2a;
+  background-blend-mode: overlay;
 }
 
-.orientacao {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-right: auto;
-  padding: 25px;
-  border: 1px solid var(--main-border-color);
-  background-color: transparent;
-  width: 330px;
-  height: 430px;
-}
-
-.orientacao button {
-  width: 200px;
-  height: 25px;
-  margin-bottom: 10px;
-  padding: 1px 2px;
-  font-size: var(--main-font-size);
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  background-color: var(--button-bg-color);
+footer {        
+  width: 100%;
+  position: absolute; /* Posição relativa */
+  bottom: 0px; /* Alinha o rodapé ao fundo */
+  text-align: center;
+  font-size: 20px;
+  padding: 8px;
+  background: radial-gradient(
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.15) 30%,
+        rgba(255, 255, 255, 0.3) 32%,
+        rgba(255, 255, 255, 0) 33%
+      )
+      0 0,
+    radial-gradient(
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.1) 11%,
+        rgba(255, 255, 255, 0.3) 13%,
+        rgba(255, 255, 255, 0) 14%
+      )
+      0 0,
+    radial-gradient(
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.2) 17%,
+        rgba(255, 255, 255, 0.43) 19%,
+        rgba(255, 255, 255, 0) 20%
+      )
+      0 110px,
+    radial-gradient(
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.2) 11%,
+        rgba(255, 255, 255, 0.4) 13%,
+        rgba(255, 255, 255, 0) 14%
+      ) -130px -170px,
+    radial-gradient(
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.2) 11%,
+        rgba(255, 255, 255, 0.4) 13%,
+        rgba(255, 255, 255, 0) 14%
+      )
+      130px 370px,
+    radial-gradient(
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0.1) 11%,
+        rgba(255, 255, 255, 0.2) 13%,
+        rgba(255, 255, 255, 0) 14%
+      )
+      0 0,
+    linear-gradient(
+      45deg,
+      #343702 0%,
+      #184500 20%,
+      #187546 30%,
+      #006782 40%,
+      #0b1284 50%,
+      #760ea1 60%,
+      #83096e 70%,
+      #840b2a 80%,
+      #b13e12 90%,
+      #e27412 100%
+    );
+  background-size: 470px 470px, 970px 970px, 410px 410px, 610px 610px,
+    530px 530px, 730px 730px, 100% 100%;
+  background-color: #840b2a;
+  background-blend-mode: overlay;
   color: white;
-  transition: 0.2s, background-color 0.3s;
 }
 
-.orientacao button:hover {
-  background-color: var(--button-hover-bg-color);
+footer:hover {
   transform: scale(1.1);
+  box-shadow: inset 1px 30px 30px rgba(255, 255, 255, 1);
+  animation: spin 5s linear infinite;
+  border-radius: 10%;
 }
 
-.orientacao button:active {
-  transform: scale(var(--button-active-scale));
+/* Ajuste de zoom para 50% */
+@media (max-width: 1200px) {
+  footer{
+    bottom: 600px;
+  }  
 }
 
-h4, ol, ul, li {
-  text-align: justify;
-  font-size: 14px;
-  padding-left: 8px;
+/* Títulos */
+h1 { 
+  margin: 2px;
+  font-size: 40px; 
+  width: 100%;
+  padding: 2px;
+  color: white;
+  filter: drop-shadow(10px 10px 2px gray);
+}
+
+h1:hover {
+  transform: scale(1);
+  box-shadow: 0 30px 30px rgba(255, 255, 255, 1);
+  animation: spin 5s linear infinite;
+  border-radius: 40%;
+}
+
+#tbem {
+  margin: 0.3125rem;
+  font-size: 1.5rem;
+  text-align: center;
+  color: transparent;
+  background-clip: text;
+  background-color: hsl(34, 53%, 82%);
+  background-image: repeating-linear-gradient(
+    45deg,
+    #d7dd60 0%,
+    #e4f52a 20%,
+    #f3a322 30%,
+    #f5511b 40%,
+    #230f07 50%,
+    #37094a 60%,
+    #83096e 70%,
+    #840b2a 80%,
+    #623c59 90%,
+    #ef0a0a 100%
+  );
+  text-shadow: 0.125rem 0.125rem 0.25rem rgba(0, 0, 0, 0.5);
+}
+
+legend {
+  color: yellow;
+  font-size: 18px;
+  filter: drop-shadow(0 2px 5px white);
 }
 
 .controls {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  font-size: 14px;
   margin-left: 15px;
-  margin-right: 5px;
-  padding: 10px;
-  border: 2px solid outset var(--main-border-color);
+  margin-right: 15px;
+  padding: 8px;
+  border: 5px solid outset #ccc;
   background-color: transparent;
 }
 
 .controls button {
   width: 200px;
-  height: 50px;
+  height: 60px;
   align-items: flex-start;
-  margin-left: 15px;
-  padding: 1px;
-  font-size: var(--main-font-size); 
+  margin: 4px auto;
+  padding: 2px;
+  font-size: 14px; 
   cursor: pointer; 
   border: outset 5px rgb(151, 151, 181);   
   border-radius: 5px;
@@ -128,15 +305,15 @@ h4, ol, ul, li {
 }
 
 .controls button:active {
-  transform: scale(var(--button-active-scale));
+  transform: scale(0.95);
 }
 
 .draggable {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 8px;
-  margin-right: 15px;
+  margin-left: 2px;
+  margin-right: 2px;
   margin-top: 1px;
   padding: 1px;
 }
@@ -146,57 +323,56 @@ h4, ol, ul, li {
 }
 
 #img1 {
+    position: relative;
     width: 100%; /* Ajusta a largura da imagem */
-    height: 390px; /* Ajusta a altura da imagem */
-    opacity: 0.8;/* Torna a imagem translúcida */
+    height: 420px; /* Ajusta a altura da imagem */
+    opacity: 0.6; /* Torna a imagem translúcida */
     object-fit: cover; /* Ajusta a imagem para caber dentro do contêiner */ 
-    box-shadow:12px 15px 5px black;
+    z-index: 2;
   }
 
 .pincel {
-  width: 30px; /* Ajusta a largura da imagem */
-  height: 30px; /* Ajusta a altura da imagem */
+  width: 28px; /* Ajusta a largura da imagem */
+  height: 28px; /* Ajusta a altura da imagem */
 }
 
-#tela {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.texto-na-frente {
+  position: absolute; /* Define a posição absoluta para o texto */
+  top: 0; /* Alinha o texto ao topo do contêiner */
+  left: 0; /* Alinha o texto à esquerda do contêiner */
+  width: 100%; /* Ajusta a largura do texto */
+  color: black; /* Cor do texto */
+  z-index: 7; /* Garante que o texto fique na frente */
+  padding: 10px; /* Espaçamento interno para o texto */
   margin-left: 10px;
-  margin-bottom: 10px;
-  padding: 10px;
-  border: 1px solid var(--main-border-color);
-  background-color: transparent;
-  width: 450px;
-  height: 420px;
+  margin-top: 20px;
 }
 
 .icon {
-  width: 50px;
-  height: 50px;
+  margin-left: 1px;
+  width: 35px;
+  height: 35px;
 }
 
 .controls1 {
   display: flex;
-  font-size: 14px;
   flex-direction: column;
   align-items: flex-start;
   margin-left: 8px;
   margin-right: 15px;
   margin-top: 1px;
   padding: 1px;
-  border: solid outset 2px var(--main-border-color);
+  border: solid outset 2px #ccc;
   background-color: transparent;
 }
 
 .controls1 button {
-  height: 35px;
-  padding: 5px;
-  margin-bottom: 5px;
+  height: 30px;
+  padding: 4px;
+  margin-bottom: 2px;
   border: outset yellow;
   background: linear-gradient(45deg,#b3b7a5 15%,#c9f054 35%,#30382b 75%,#c05d20 4%);
   color: white;
-  box-shadow:5px 8px 2px black;
 }
 
 .controls1 button:hover {
@@ -205,7 +381,22 @@ h4, ol, ul, li {
 }
 
 .controls1 button:active {
-  transform: scale(var(--button-active-scale));
+  transform: scale(0.95);
+}
+
+#p-texto {
+  text-align: justify;
+  font-size: 14px;
+  padding: 1px;
+  margin-top: 1px;
+}
+
+#questao, #questao1, #questao3 ul, li {
+  margin-left: 15px;
+  text-align: justify;
+  font-size: 15px;
+  padding: 1px;
+  margin-top: 1px;
 }
 
 .mensagens-div {
@@ -216,21 +407,20 @@ h4, ol, ul, li {
   margin: 20px;
   border-radius: 10px;
   width: 300px;
-  height: 150px; 
-  font-size: 30px;
-  box-shadow:12px 15px 5px white;
+  height: 200px; 
+  font-size: 20px;
 }
 
 .mensagem-texto {
   position: absolute; /* Define a posição absoluta para o texto */
-  padding: 10px 10px;
-  margin: 5px 5px;
+  padding: 10px 20px;
+  margin: 5px 20px;
+  font-size: 28px;
   border-radius: 20px;
-  width: 290px;
-  height: 150px;
+  width: 300px;
+  height: 200px;
   text-align: center;
-  font-size: 30px;
-  box-shadow:12px 15px 10px white;
+  font-size: 15px;
 }
 
 .color-table {
@@ -294,49 +484,32 @@ h4, ol, ul, li {
 
 .mensagem-vermelha {
   color: red;
-  font-size: 30px;
-  text-shadow: 1px 2px 2px white;
+  font-size: 20px;
 }
 
 .mensagem-white {
-  font-size: 30px;
+  font-size: 20px;
   color: white;
-  text-shadow: 1px 2px 2px #0b1284;
+  text-shadow: #0b1284;
 }
 
 .mensagem-azul {
-  font-size: 30px;
-  color: rgb(26, 78, 175);
-  text-shadow: 1px 2px 2px white;
-}
-
-.mensagem-yellow {
-  font-size: 30px;
-  color: yellow;
-  text-shadow: 1px 2px 2px white;
+  font-size: 20px;
+  color: rgb(141, 159, 192);
 }
 
 @keyframes blink {
-  0% { opacity: 1; color: #760ea1; }
-  50% { opacity: 0; color: #c9f054; }
-  100% { opacity: 1; color: #840b2a; }
-  0% { opacity: 1; color: #f0ff00; }
-  50% { opacity: 0; color: #ff0000; }
-  100% { opacity: 1; color: #00ff00; }
-  0% { opacity: 0; color: #0000ff; }
-  50% { opacity: 1; color: #ff00ff; }
-  100% { opacity: 0; color: #00ffff; }
-  0% { opacity: 1; color: #800000; }
-  50% { opacity: 0; color: #f0f0; }
-  100% { opacity: 1; color: #808000; }
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
-.blink {
-  animation: blink 4s 3s infinite;
+.mensagem-piscar {
+  animation: blink 1s infinite;
 }
 
 #t-jogo {
-  font-size: 30px;
+  font-size: 13.5px;
   margin-top: 15px;
   margin-left: 0px;
 }
@@ -347,29 +520,24 @@ h4, ol, ul, li {
   padding: 20px;
   margin-left: 2px;
   border-radius: 30px;
-  width: 300px;
-  height: 150px; 
-  font-size: 30px;
+  width: 100px;
+  height: 200px; 
+  font-size: 20px;
 }
 
 .mensagemTexto {
   align-items: column;
   font-size: 15px;
-  width: 300px;
-  height: 150px;
-  border-radius: 30px;
-}
-
-.msgDiv {
-  font-size: 30px;
+  width: 100px;
+  height: 100px;
   border-radius: 20px;
 }
 
-#t-jogo {
-  font-size: 30px;
-  width: 300px;
+.msgDiv {
+  font-size: 15px;
+  border-radius: 20px;
 }
 
-button:focus {
-  outline: 2px solid blue; /* Adiciona foco visível para acessibilidade */
+fieldset{
+  height: 450px;
 }
