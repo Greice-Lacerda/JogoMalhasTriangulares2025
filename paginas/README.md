@@ -1,5 +1,5 @@
 {
-  "name": "markdownlint-package-json-configuration",
+  "Jogo de Malhas": "markdownlint-package-json-configuration",
   "version": "0.0.1",
   "description": "Pagina do Jogo Malhas.json configuration",
   "author": "Greice e Pablo",
