@@ -1,0 +1,50 @@
+# Fluxo de trabalho para construir e implantar o jogo no GitHub Pages
+name: Deploy Triangularizando e Aprendendo no GitHub Pages
+
+on:
+  # Executa quando houver push na branch padrão
+  push:
+    branches: ["main"]
+
+  # Permite execução manual do workflow na aba Actions
+  workflow_dispatch:
+
+# Define permissões para o GITHUB_TOKEN necessárias para a publicação
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Controle de concorrência, evitando várias implantações simultâneas
+concurrency:
+  group: "deploy-pages"
+  cancel-in-progress: false
+
+jobs:
+  # Job de construção
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Construir Projeto (Jekyll não é necessário aqui, mas adaptável)
+        run: |
+          echo "Construção personalizada do projeto"
+          mkdir _site
+          cp -R * _site/
+      - name: Carregar artefatos de build
+        uses: actions/upload-pages-artifact@v3
+
+  # Job de implantação
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Implantar no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
