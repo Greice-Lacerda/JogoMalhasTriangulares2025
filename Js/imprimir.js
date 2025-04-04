@@ -1,6 +1,6 @@
 // Função para voltar à fase 1
 function voltarParaFase1() {
-  window.location.href = "../paginas/fase1.html";
+  window.location.href = "C:/Users/Greice Lacerda/OneDrive/ASSUNTOS DE KELI/CAP-UERJ/PARA ARTIGOS FUTUROS 2025/Jogo Malhas/pages/fase1.html";
 }
 
 // Função para carregar imagens salvas do localStorage e exibir na página
@@ -83,8 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
             <head>
                 <title>Impressão - Triangularizando e Aprendendo</title>
                 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-                <link rel="stylesheet" href="../estilos/comuns.css" />
-                <link rel="stylesheet" href="../estilos/imprimir.css"/>
+                <link rel="stylesheet" href="C:/Users/Greice Lacerda/OneDrive/ASSUNTOS DE KELI/CAP-UERJ/PARA ARTIGOS FUTUROS 2025/Jogo Malhas/estilos/estilos-comuns.css" />
+                <link rel="stylesheet" href="C:/Users/Greice Lacerda/OneDrive/ASSUNTOS DE KELI/CAP-UERJ/PARA ARTIGOS FUTUROS 2025/Jogo Malhas/estilos/estilo-imprimir.css"/>
                 <meta
                   name="description"
                   content="Um jogo educativo para aprender sobre triangulação."/>
