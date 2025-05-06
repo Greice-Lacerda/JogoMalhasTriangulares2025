@@ -41,9 +41,9 @@ localStorage.setItem(".imagensSalvas", JSON.stringify(imagensSalvas));
 exibirMensagemTemporaria(
     "Imagem salva com sucesso!",
     "Indo para a próxima fase!",
+    2000,
     1000,
-    1000,
-    "C:/Users/Greice Lacerda/OneDrive/ASSUNTOS DE KELI/CAP-UERJ/PARA ARTIGOS FUTUROS 2025/Jogo Malhas/pages/Desafio.html"
+    //"../paginas/Desafio.html"
 );
 
 // Função para exibir a mensagem temporária no meio da tela

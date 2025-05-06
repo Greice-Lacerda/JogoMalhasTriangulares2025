@@ -4,6 +4,7 @@
   align-items: flex-start;
   margin-left: 10px;
   margin-right: 15px;
+  margin-top: 200px;
   padding: 10px;
   border: solid outset 2px #ccc;
   background-color: transparent;
@@ -11,14 +12,14 @@
 
 .orientacao button {
   width: 250px;
-  height: 50px;
-  margin: 2px 15px;
+  height: 100px;
+  margin: 25px;
   align-items: flex-start;
-  padding: 5px;
-  font-size: 16px; 
+  padding: 10px;
+  font-size: 24px; 
   cursor: pointer; 
   border: outset 5px rgb(151, 151, 181);   
-  border-radius: 5px;
+  border-radius: 20px;
   background: linear-gradient(45deg,#006782 40%, #0b1284 50%, #760ea1 60%, #83096e);
   color: white;
   transition: 0.2s;
@@ -51,7 +52,6 @@ body {
   display: none; /* Oculto por padrão */
   z-index: 1;
   left: 0;
-  top: 0;
   width: 100%;
   height: auto;
   overflow: auto;
@@ -60,7 +60,7 @@ body {
 }
 
 .modal-content {
-  margin: 15% auto;
+  margin: 15px auto;
   padding: 20px;
   border: 1px solid #888;
   width: 80%;
@@ -82,7 +82,7 @@ body {
 /* Estilos para imagens com borda */
 .imagem-com-borda {
   border: 2px solid #000; /* Borda preta */
-  margin: 10px; /* Espaçamento ao redor da imagem */
+  margin: 2px auto; /* Espaçamento ao redor da imagem */
 }
 
 .selecionada {
@@ -91,11 +91,12 @@ body {
 
 .Tb{
   color: black;
-  font-size: 22px;
+  font-size: 36px;
 }
 
 fieldset {
-  position: relative; /* Garante que a posição absoluta do botão funcione */
+  position: relative;
+  margin: 15px auto; /* Garante que a posição absoluta do botão funcione */
 }
 
 .deleteBtn {
@@ -111,6 +112,9 @@ fieldset {
   color: black;
   font-size: 18px;
 }
+
+
+
 
 
 
