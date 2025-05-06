@@ -161,10 +161,11 @@
 /* Ajuste de zoom para 50% */
 @media (max-width: 1200px) {
 .contoles-ins {
+  transform: scale(0.65);
       display: flex;
       flex-direction: row;
       align-items: flex-start;
-      margin-left: 1.5625rem;
+      margin-left: 11.5625rem;
       margin-right: 1.5625rem;
       padding: 0.625rem;
       border: solid outset 0.3125rem #ccc;
@@ -186,7 +187,7 @@
         
 /* Ajuste de zoom para 50% */
 @media (max-width: 1200px) {
-#corpo4, #fase-1, .p2, .fase-1, .b-ins, #tbem { 
+#corpo4, .contole_ins, #fase-1, .p2, .fase-1, .b-ins, #tbem { 
       font-size: 100px;
       zoom: 0.5;
       line-height: 2;
@@ -195,7 +196,7 @@
     
 /* Ajuste de zoom para 100% */
 @media (min-width: 1201px) {
-#corpo4{
+#corpo{
     width: 100%;
     margin-top: 1px;
     font-size: 45px;

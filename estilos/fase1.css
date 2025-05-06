@@ -48,7 +48,7 @@ z-index: -1; /* Coloca a imagem atrás do conteúdo */
 #game-container {
   top: 20px;
   display: flex;
-  bottom: 10px;
+  bottom: 30px;
 }
 
 /* Ajuste de zoom para 50% */
@@ -225,7 +225,7 @@ footer:hover {
 /* Ajuste de zoom para 50% */
 @media (max-width: 1200px) {
   footer{
-    bottom: 600px;
+    bottom: 540px;
   }  
 }
 
