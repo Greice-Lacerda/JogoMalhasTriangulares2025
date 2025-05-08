@@ -35,10 +35,10 @@ function desenharMalha() {
 desenharMalha();
 
 // Array de cores para as mensagens temporárias
-const mensagemCores = [ "#f0ff00", "#ff0000", "#00ff00", "#0000ff",
-    "#800000", "#808000", "#008080", "#800220", "#ff8000", "#80ff00",
-    "#00ff", "#ff0080", "#ff8080", "#80f010",
-    "#8080ff", "#9fff80"];
+const mensagemCores = [ "#f0ff00", "#ff0000", "#00ff00",
+    "#800000", "#800220", "#ff8000", "#80ff00",
+    "#ff0080", "#ff8080", "#80f010",
+    "#9fff80"];
 
 // Função para exibir a mensagem temporária
 function exibirMensagemTemporaria(mensagem, classe = "") {
@@ -135,13 +135,14 @@ function addAresta() {
         arestas.push({ v1, v2 });
     }
     selectedVertices = [];
-    if (arestas.length < numVertices * (numVertices - 1) / 2) {
+    // Condição corrigida para verificar se o número máximo de arestas foi atingido
+    if (arestas.length < 2 * numVertices - 3) {
         canvas.addEventListener("click", selectVertices);
     } else {
         canvas.removeEventListener("click", selectVertices);
         document.getElementById("addEdge").disabled = true;
         fecharMensagemTemporaria();
-        const mensagem3 = '<span class="blink">Clique no <u>botão Pintar Elementos </u>para colorir a figura.</span> ';
+        const mensagem3 = '<span class="blink">Clique em <strong> Pintar </strong> para colorir a figura.</strong>.</span>';
         exibirMensagemTemporaria(mensagem3, "mensagem-azul");
     }
 }
@@ -192,5 +193,11 @@ function areAllVerticesConnected() {
 // Adiciona evento ao botão "Pintar Elementos"
 document.getElementById("pintarElementos").addEventListener("click", function() {
     fecharMensagemTemporaria(); // Fecha a mensagem anterior
-    pintar(); // Chama a função pintar do arquivo pintar.js
+    // A chamada para pintar() provavelmente está em outro arquivo (pintar.js)
+    // Se essa função for importante para o fluxo, certifique-se de que ela esteja definida corretamente.
+    if (typeof pintar === 'function') {
+        pintar();
+    } else {
+        console.warn("A função pintar() não está definida.");
+    }
 });

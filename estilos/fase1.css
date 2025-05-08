@@ -404,7 +404,7 @@ legend {
 .mensagens-div {
   position: absolute; /* Define a posição absoluta para o texto */
   background-color: transparent;
-  color: white;
+  color: rgb(8, 0, 0);
   padding: 20px;
   margin: 20px;
   border-radius: 10px;
@@ -419,10 +419,10 @@ legend {
   margin: 5px 20px;
   font-size: 28px;
   border-radius: 20px;
+  color:#000000;
   width: 300px;
   height: 200px;
   text-align: center;
-  font-size: 15px;
 }
 
 .color-table {
@@ -444,6 +444,7 @@ legend {
 
 #t-fase {
   margin-top: 15px;
+  color:#000000;
   font-size: 24px;
   text-align: center;
   filter: drop-shadow(2px 6px 8px rgba(255, 255, 255, 1));
@@ -491,13 +492,13 @@ legend {
 
 .mensagem-white {
   font-size: 20px;
-  color: white;
+  color: rgb(24, 4, 68);
   text-shadow: #0b1284;
 }
 
 .mensagem-azul {
   font-size: 20px;
-  color: rgb(141, 159, 192);
+  color: rgb(8, 88, 236);
 }
 
 @keyframes blink {
@@ -520,7 +521,7 @@ legend {
 
 .mensagensDiv1 {
   background-color: transparent;
-  color: white;
+  color: rgb(13, 1, 1);
   padding: 20px;
   margin-left: 2px;
   border-radius: 30px;
