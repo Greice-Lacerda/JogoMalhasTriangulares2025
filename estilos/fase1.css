@@ -512,7 +512,7 @@ legend {
 }
 
 #t-jogo {
-  font-size: 22px;
+  font-size: 20px;
   margin-top: 15px;
   margin-left: 0px;
   margin-right: 95px;
@@ -527,7 +527,7 @@ legend {
   border-radius: 30px;
   width: 100px;
   height: 200px; 
-  font-size: 20px;
+  font-size: 14px;
 }
 
 .mensagemTexto {
@@ -535,12 +535,12 @@ legend {
   font-size: 15px;
   width: 100px;
   height: 100px;
-  border-radius: 20px;
+  border-radius: 14px;
 }
 
 .msgDiv {
   font-size: 15px;
-  border-radius: 20px;
+  border-radius: 14px;
 }
 
 fieldset{
@@ -580,3 +580,13 @@ fieldset{
     zoom: 1;
   }
  }
+
+ #contadorArestas {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 5px;
+  border-radius: 5px;
+  z-index: 10; /* Garante que o contador fique acima do canvas */
+}

@@ -11,6 +11,37 @@ canvas.style.borderRadius = "10px";
 canvas.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
 canvas.style.backgroundColor = "white";
 
+// Elemento HTML para exibir a contagem de arestas
+const contadorArestasElement = document.createElement("span");
+contadorArestasElement.id = "contadorArestas";
+document.body.appendChild(contadorArestasElement);
+contadorArestasElement.style.position = "absolute";
+contadorArestasElement.style.top = "10px";
+contadorArestasElement.style.left = "10px";
+contadorArestasElement.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
+contadorArestasElement.style.padding = "5px";
+contadorArestasElement.style.borderRadius = "5px";
+contadorArestasElement.style.zIndex = "10";
+
+// Função para atualizar o contador de arestas
+function atualizarContadorArestas() {
+    const contador = document.getElementById("contadorArestas");
+    if (contador) {
+        contador.textContent = `Arestas: ${arestas.length}`;
+    }
+}
+
+// Inicializa a contagem de arestas
+atualizarContadorArestas();
+
+// Função para calcular o número total de arestas de um polígono de n lados com triangulações internas
+function calcularArestasPoligonoTriangulado(n) {
+    if (n < 3) {
+        return 0; // Não é um polígono
+    }
+    return 2 * n - 3;
+}
+
 // Função para desenhar a malha no canvas
 function desenharMalha() {
     ctx.save();
@@ -36,7 +67,7 @@ desenharMalha();
 
 // Array de cores para as mensagens temporárias
 const mensagemCores = [ "#f0ff00", "#ff0000", "#00ff00",
-    "#800000", "#800220", "#ff8000", "#80ff00",
+    "#ff8000", "#80ff00",
     "#ff0080", "#ff8080", "#80f010",
     "#9fff80"];
 
@@ -70,6 +101,9 @@ document.getElementById("addVertex").addEventListener("click", () => {
     iniciarJogo();
 });
 
+let numVerticesAdicionados = 0;
+let numArestas = 0;
+let numArestasAdicionadas = 0;
 function iniciarJogo() {
     if (numVertices === 0) {
         numVertices = parseInt(prompt("Escolha o número de vértices (mínimo 3):", 3));
@@ -78,7 +112,7 @@ function iniciarJogo() {
             numVertices = 0;
             return;
         }
-        const mensagem1 = '<span class="blink">Clique na <u>malha</u> para inserir os vértices</span>.';
+        const mensagem1 = '<span class="blink">Clique na <strong> malha </strong> para inserir os vértices</span>.';
         exibirMensagemTemporaria(mensagem1, "mensagem-white");
         canvas.addEventListener("click", addVertice);
     }
@@ -90,7 +124,8 @@ function addVertice(event) {
     let scaleY = canvas.height / rect.height;
     let x = (event.clientX - rect.left) * scaleX;
     let y = (event.clientY - rect.top) * scaleY;
-    vertices.push({ x, y });
+    numVerticesAdicionados++; // Incrementa o contador de vértices
+    vertices.push({ id: numVerticesAdicionados, x, y }); // Adiciona o ID único
     ctx.beginPath();
     ctx.arc(x, y, 5, 0, Math.PI * 2);
     ctx.fill();
@@ -98,16 +133,21 @@ function addVertice(event) {
         canvas.removeEventListener("click", addVertice);
         document.getElementById("addVertex").disabled = true;
         fecharMensagemTemporaria();
-        const mensagem2 = '<span class="blink">Clique no botão <u>Adicionar Aresta</u> para ligar dois pontos.</span>';
+        const mensagem2 = '<span class="blink">Clique no botão <strong> Adicionar Aresta </strong> para ligar dois pontos.</span>';
         exibirMensagemTemporaria(mensagem2, "mensagem-azul");
+        document.getElementById("addEdge").disabled = false;
     }
 }
 
 document.getElementById("addEdge").addEventListener("click", function() {
     canvas.addEventListener("click", selectVertices);
+    fecharMensagemTemporaria();
+    const mensagemAresta = '<span class="blink">Clique em <strong>dois vértices</strong> para adicionar uma aresta.</span>';
+    exibirMensagemTemporaria(mensagemAresta, "mensagem-verde");
 });
 
 let selectedVertices = [];
+let arestaSelecionada = [];
 
 function selectVertices(event) {
     let rect = canvas.getBoundingClientRect();
@@ -118,6 +158,10 @@ function selectVertices(event) {
     let vertex = vertices.find(v => Math.hypot(v.x - x, v.y - y) < 10);
     if (vertex && selectedVertices.length < 2) {
         selectedVertices.push(vertex);
+        ctx.beginPath();
+        ctx.arc(vertex.x, vertex.y, 7, 0, Math.PI * 2);
+        ctx.fillStyle = "blue";
+        ctx.fill();
         if (selectedVertices.length === 2) {
             addAresta();
         }
@@ -133,18 +177,30 @@ function addAresta() {
         ctx.lineTo(v2.x, v2.y);
         ctx.stroke();
         arestas.push({ v1, v2 });
+        atualizarContadorArestas(); // Atualiza o contador após adicionar uma aresta
+
+        // Verifica se o número de arestas atingiu o limite para um polígono triangulado
+        const numArestasPoligono = calcularArestasPoligonoTriangulado(numVertices);
+        if (arestas.length >= 2 * numVertices - 3) {
+            canvas.removeEventListener("click", selectVertices);
+            document.getElementById("addEdge").disabled = true;
+            fecharMensagemTemporaria();
+            const mensagemPintar = '<span class="blink">Clique em <strong> Pintar Elementos </strong> para colorir a figura.</span>';
+            exibirMensagemTemporaria(mensagemPintar, "mensagem-azul");
+            document.getElementById("pintarElementos").disabled = false;
+        } else {
+            canvas.addEventListener("click", selectVertices);
+            const mensagemAresta = '<span class="blink">Clique em <strong>dois vértices</strong> para adicionar uma aresta.</span>';
+            exibirMensagemTemporaria(mensagemAresta, "mensagem-verde");
+        }
     }
     selectedVertices = [];
-    // Condição corrigida para verificar se o número máximo de arestas foi atingido
-    if (arestas.length < 2 * numVertices - 3) {
-        canvas.addEventListener("click", selectVertices);
-    } else {
-        canvas.removeEventListener("click", selectVertices);
-        document.getElementById("addEdge").disabled = true;
-        fecharMensagemTemporaria();
-        const mensagem3 = '<span class="blink">Clique em <strong> Pintar </strong> para colorir a figura.</strong>.</span>';
-        exibirMensagemTemporaria(mensagem3, "mensagem-azul");
-    }
+    ctx.fillStyle = "black"; // Reset fill color
+    vertices.forEach(v => { // Redraw vertices
+        ctx.beginPath();
+        ctx.arc(v.x, v.y, 5, 0, Math.PI * 2);
+        ctx.fill();
+    });
 }
 
 function edgeExists(v1, v2) {
@@ -171,33 +227,3 @@ function doLinesIntersect(p1, p2, p3, p4) {
 }
 
 ctx.lineWidth = 3;
-
-function areAllVerticesConnected() {
-    if (vertices.length === 0) return true;
-    let visited = new Set();
-    let stack = [vertices[0]];
-    while (stack.length > 0) {
-        let vertex = stack.pop();
-        visited.add(vertex);
-        arestas.forEach(aresta => {
-            if (aresta.v1 === vertex && !visited.has(aresta.v2)) {
-                stack.push(aresta.v2);
-            } else if (aresta.v2 === vertex && !visited.has(aresta.v1)) {
-                stack.push(aresta.v1);
-            }
-        });
-    }
-    return visited.size === vertices.length;
-}
-
-// Adiciona evento ao botão "Pintar Elementos"
-document.getElementById("pintarElementos").addEventListener("click", function() {
-    fecharMensagemTemporaria(); // Fecha a mensagem anterior
-    // A chamada para pintar() provavelmente está em outro arquivo (pintar.js)
-    // Se essa função for importante para o fluxo, certifique-se de que ela esteja definida corretamente.
-    if (typeof pintar === 'function') {
-        pintar();
-    } else {
-        console.warn("A função pintar() não está definida.");
-    }
-});
