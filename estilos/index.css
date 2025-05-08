@@ -2,7 +2,7 @@
 
 /* Configurações gerais */
 body {
-  font-size: 1rem; /* Usando rem para ajustar com base no tamanho da fonte raiz */
+  font-size: 16px; /* Usando rem para ajustar com base no tamanho da fonte raiz */
 }
 
 /* Container do jogo */
