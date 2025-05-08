@@ -1,5 +1,5 @@
 body {
-  font-size: 14px; /* Usando rem para ajustar com base no tamanho da fonte raiz */
+  font-size: 18px; /* Usando rem para ajustar com base no tamanho da fonte raiz */
   margin-bottom: 2px;
   margin-top: 1px;
   font-family: Arial, sans-serif;
@@ -270,7 +270,7 @@ h1:hover {
 }
 
 legend {
-  color: yellow;
+  color: rgb(111, 52, 228);
   font-size: 18px;
   filter: drop-shadow(0 2px 5px white);
 }
@@ -292,7 +292,7 @@ legend {
   align-items: flex-start;
   margin: 4px auto;
   padding: 2px;
-  font-size: 14px; 
+  font-size: 18px; 
   cursor: pointer; 
   border: outset 5px rgb(151, 151, 181);   
   border-radius: 5px;
@@ -328,7 +328,7 @@ legend {
     position: relative;
     width: 100%; /* Ajusta a largura da imagem */
     height: 420px; /* Ajusta a altura da imagem */
-    opacity: 0.6; /* Torna a imagem translúcida */
+    opacity: 0.4; /* Torna a imagem translúcida */
     object-fit: cover; /* Ajusta a imagem para caber dentro do contêiner */ 
     z-index: 2;
   }
@@ -343,10 +343,10 @@ legend {
   top: 0; /* Alinha o texto ao topo do contêiner */
   left: 0; /* Alinha o texto à esquerda do contêiner */
   width: 100%; /* Ajusta a largura do texto */
-  color: black; /* Cor do texto */
+  color: rgb(14, 10, 10); /* Cor do texto */
   z-index: 7; /* Garante que o texto fique na frente */
   padding: 10px; /* Espaçamento interno para o texto */
-  margin-left: 10px;
+  margin-left: 40px;
   margin-top: 20px;
 }
 
@@ -373,7 +373,7 @@ legend {
   padding: 4px;
   margin-bottom: 2px;
   border: outset yellow;
-  background: linear-gradient(45deg,#b3b7a5 15%,#c9f054 35%,#30382b 75%,#c05d20 4%);
+  background: linear-gradient(45deg,#0a0a09 15%,#5f7717 35%,#30382b 75%,#c05d20 10%);
   color: white;
 }
 
@@ -388,7 +388,7 @@ legend {
 
 #p-texto {
   text-align: justify;
-  font-size: 14px;
+  font-size: 20px;
   padding: 1px;
   margin-top: 1px;
 }
@@ -396,7 +396,7 @@ legend {
 #questao, #questao1, #questao3 ul, li {
   margin-left: 15px;
   text-align: justify;
-  font-size: 15px;
+  font-size: 20px;
   padding: 1px;
   margin-top: 1px;
 }
@@ -435,8 +435,8 @@ legend {
 }
 
 .color-button {
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
   border: none;
   border-radius: 50%;
@@ -457,7 +457,7 @@ legend {
 
 #t-bem {
   margin-left: 10px;
-  font-size: 24px;
+  font-size: 30px;
   text-align: left;
   color: transparent;
   background-clip: text;
@@ -511,9 +511,11 @@ legend {
 }
 
 #t-jogo {
-  font-size: 13.5px;
+  font-size: 22px;
   margin-top: 15px;
   margin-left: 0px;
+  margin-right: 95px;
+  text-align: justify;
 }
 
 .mensagensDiv1 {

@@ -31,7 +31,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(66, 64, 64, 0.5);
   border: 20px double black;
   border-radius: 20px;
   text-align: center;
@@ -186,26 +186,25 @@
 }
 
 .b-indice {
-  color: #040111;
+  color: #101011;
   font-size: 50px;
   text-shadow: 1px 2px 3px #2746aa;
 }
 
 .ind-controles {
-  bottom: 200px;
+  bottom: 50px;
   width: 1300px;
-  height: 150px;
+  height: 130px;
   position: absolute;
   display: flex;
   flex-direction: row; /* Correção da direção */
   align-items: flex-start;
-  bottom: 100px;
   padding: 10px auto;
   background-color: transparent;
 }
 
 .ind-controles button {  
-  border: outset 10px rgb(168, 168, 223);
+  border: outset 10px rgb(48, 48, 110);
   padding: 10px;
   width: 280px;
   height: 90px;
