@@ -4,7 +4,7 @@
   align-items: flex-start;
   margin-left: 10px;
   margin-right: 15px;
-  margin-top: 200px;
+  margin-top: 230px;
   padding: 10px;
   border: solid outset 2px #ccc;
   background-color: transparent;
@@ -90,13 +90,14 @@ body {
 }
 
 .Tb{
+  bottom: 3px;
   color: black;
   font-size: 36px;
 }
 
 fieldset {
   position: relative;
-  margin: 15px auto; /* Garante que a posição absoluta do botão funcione */
+  margin: 5px; /* Garante que a posição absoluta do botão funcione */
 }
 
 .deleteBtn {
@@ -110,7 +111,7 @@ fieldset {
 
 .deleteBtn i {
   color: black;
-  font-size: 18px;
+  font-size: 24px;
 }
 
 
