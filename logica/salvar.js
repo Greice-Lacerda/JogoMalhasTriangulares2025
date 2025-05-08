@@ -75,9 +75,7 @@ function exibirMensagemTemporaria1(mensagem1, mensagem2, tempo1 = 1000, tempo2 =
 
         setTimeout(() => {
             msg2.remove();
-            if (url) {
-                window.location.href = url;
-            }
+            desenharPoligono();
         }, tempo2);
     }, tempo1);
 }
@@ -86,3 +84,4 @@ function exibirMensagemTemporaria1(mensagem1, mensagem2, tempo1 = 1000, tempo2 =
 
 // Evento para carregar imagens ao iniciar a página
 window.onload = carregarImagens;
+

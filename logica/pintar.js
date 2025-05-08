@@ -26,9 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             exibirMensagemTemporaria("Figura concluída com sucesso! Clique em Salvar para prosseguir.");
             setTimeout(() => {
-                
                 document.getElementById("salvar").disabled = false;
-            }, 500, 200);
+            }, 500);
         }
     });
 
@@ -108,11 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("addEdge").disabled = true;
             document.getElementById("pintarElementos").disabled = true;
             canvas.removeEventListener("click", selecionarVerticePintura);
-            exibirMensagemTemporaria("Figura concluída com sucesso!");
-            setTimeout(() => {
-                exibirMensagemTemporaria("Figura concluída com sucesso!");
-                document.getElementById("salvar").disabled = false;
-            }, 3500);
+            exibirMensagemPinturaConcluida(); // Chama a função modificada
         } else {
             exibirMensagemComSeletor("Selecione a cor para o próximo triângulo:");
         }
@@ -168,7 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
         tabela.style.marginBottom = "5px";
 
         let row;
-        const numCoresPorLinha = 5;
+        const numCoresPorLinha = 6; // Ajustado para 6 colunas
         const fatorReducao = 0.65;
         const novoTamanhoBotao = 20 * fatorReducao;
 
@@ -219,12 +214,34 @@ document.addEventListener("DOMContentLoaded", () => {
         mensagensDiv1.style.fontSize = "14px";
         mensagensDiv1.style.alignItems = "center";
         mensagensDiv1.style.width = "80%";
-        mensagensDiv1.style.height = "80%";
+        mensagensDiv1.style.height = "auto"; // Ajustado para auto para melhor responsividade
         mensagensDiv1.style.background = "linear-gradient(to right, #ff7e5f, #feb47b)";
         mensagensDiv1.textContent = "Figura concluída com sucesso!";
+
+        // Após 3.5 segundos, fecha a mensagem de conclusão e exibe a mensagem para salvar
         setTimeout(() => {
-            exibirMensagemTemporaria("Clique em Salvar para prosseguir.");
-            document.getElementById("salvar").disabled = false;
+            mensagensDiv1.style.display = "none";
+            exibirMensagemTemporaria("Clique em <strong> Salvar </strong> para prosseguir.");
+
+            // Adiciona um ouvinte para o evento de clique no botão "Salvar"
+            const botaoSalvar = document.getElementById("salvar");
+            if (botaoSalvar) {
+                const originalSalvarClickListener = botaoSalvar.onclick; // Salva o ouvinte original, se existir
+
+                botaoSalvar.onclick = function() {
+                    // Chama o ouvinte original do botão "Salvar", se houver
+                    if (originalSalvarClickListener) {
+                        originalSalvarClickListener.call(this);
+                    }
+                    mensagensDiv1.style.display = "none"; // Fecha a mensagem "Clique em Salvar..."
+                    PoligonoRegular(); // Chama a função PoligonoRegular
+                    // Restaura o ouvinte original para evitar comportamentos inesperados em cliques futuros
+                    botaoSalvar.onclick = originalSalvarClickListener;
+                };
+                botaoSalvar.disabled = false; // Garante que o botão "Salvar" esteja habilitado
+            } else {
+                console.error("Botão com id 'salvar' não encontrado.");
+            }
         }, 3500);
     }
 
