@@ -194,7 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("addVertex").disabled = true;
                 document.getElementById("addEdge").disabled = true;
                 mensagensDiv1.style.display = "none"; // Fecha o seletor após escolher a cor
-                const mensagenspint = document.getElementById("t-pintar");
+                const mensagenspint = document.getElementById("t-pi");
                 mensagenspint.style.display = "block";
             });
             cell.appendChild(button);
