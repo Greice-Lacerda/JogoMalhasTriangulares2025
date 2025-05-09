@@ -11,18 +11,6 @@ canvas.style.borderRadius = "10px";
 canvas.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.2)";
 canvas.style.backgroundColor = "white";
 
-// Elemento HTML para exibir a contagem de arestas
-const contadorArestasElement = document.createElement("span");
-contadorArestasElement.id = "contadorArestas";
-document.body.appendChild(contadorArestasElement);
-contadorArestasElement.style.position = "absolute";
-contadorArestasElement.style.top = "10px";
-contadorArestasElement.style.left = "10px";
-contadorArestasElement.style.backgroundColor = "rgba(255, 255, 255, 0.8)";
-contadorArestasElement.style.padding = "5px";
-contadorArestasElement.style.borderRadius = "5px";
-contadorArestasElement.style.zIndex = "10";
-
 // Função para atualizar o contador de arestas
 function atualizarContadorArestas() {
     const contador = document.getElementById("contadorArestas");
@@ -104,16 +92,19 @@ document.getElementById("addVertex").addEventListener("click", () => {
 let numVerticesAdicionados = 0;
 let numArestas = 0;
 let numArestasAdicionadas = 0;
+// É importante inicializar numVertices fora da função, ou garantir que ela seja definida antes de iniciarJogo ser chamada.
+
 function iniciarJogo() {
     if (numVertices === 0) {
-        numVertices = parseInt(prompt("Escolha o número de vértices (mínimo 3):", 3));
+        const escolha = prompt("Escolha o número de vértices (mínimo 3):", 3);
+        numVertices = parseInt(escolha);
         if (isNaN(numVertices) || numVertices < 3) {
             alert("Número inválido! Tente novamente.");
             numVertices = 0;
             return;
         }
-        const mensagem1 = '<span class="blink">Clique na <strong> malha </strong> para inserir os vértices</span>.';
-        exibirMensagemTemporaria(mensagem1, "mensagem-white");
+        const mensagemMalha = '<span class="blink"> Clique na <strong> malha </strong> <br> e insira <strong>' + numVertices + '</strong> pontos.</span>.';
+        exibirMensagemTemporaria(mensagemMalha, "mensagem-azul");
         canvas.addEventListener("click", addVertice);
     }
 }
@@ -133,8 +124,8 @@ function addVertice(event) {
         canvas.removeEventListener("click", addVertice);
         document.getElementById("addVertex").disabled = true;
         fecharMensagemTemporaria();
-        const mensagem2 = '<span class="blink">Clique no botão <strong> Adicionar Aresta </strong> para ligar dois pontos.</span>';
-        exibirMensagemTemporaria(mensagem2, "mensagem-azul");
+        const mensagemArestas = '<span class="blink"> Clique no botão <br> <strong> Adicionar Aresta </strong> <br> para ligar dois pontos.</span>';
+        exibirMensagemTemporaria(mensagemArestas, "mensagem-azul");
         document.getElementById("addEdge").disabled = false;
     }
 }
@@ -142,7 +133,7 @@ function addVertice(event) {
 document.getElementById("addEdge").addEventListener("click", function() {
     canvas.addEventListener("click", selectVertices);
     fecharMensagemTemporaria();
-    const mensagemAresta = '<span class="blink">Clique em <strong>dois vértices</strong> para adicionar uma aresta.</span>';
+    const mensagemAresta = '<span class="blink"> Clique em <strong> dois pontos </strong> <br> para adicionar arestas externas e internas.</span>';
     exibirMensagemTemporaria(mensagemAresta, "mensagem-verde");
 });
 
@@ -185,13 +176,13 @@ function addAresta() {
             canvas.removeEventListener("click", selectVertices);
             document.getElementById("addEdge").disabled = true;
             fecharMensagemTemporaria();
-            const mensagemPintar = '<span class="blink">Clique em <strong> Pintar Elementos </strong> para colorir a figura.</span>';
+            const mensagemPintar = '<span class="blink"> Clique no botão <br> <strong> Pintar Elementos <br> </strong> para colorir os triângulos.</span>';
             exibirMensagemTemporaria(mensagemPintar, "mensagem-azul");
             document.getElementById("pintarElementos").disabled = false;
         } else {
             canvas.addEventListener("click", selectVertices);
-            const mensagemAresta = '<span class="blink">Clique em <strong>dois vértices</strong> para adicionar uma aresta.</span>';
-            exibirMensagemTemporaria(mensagemAresta, "mensagem-verde");
+            const mensagemAresta = '<span class="blink"> Clique em <strong> dois pontos </strong> <br> para adicionar arestas internas e externas.</span>';
+            exibirMensagemTemporaria(mensagemAresta, "mensagem-azul");
         }
     }
     selectedVertices = [];

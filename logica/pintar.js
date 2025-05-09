@@ -6,30 +6,31 @@ document.addEventListener("DOMContentLoaded", () => {
     let pinturaConcluida = false;
     let selectedVerticesForTriangle = [];
     let paintedTriangles = new Set(); // Para rastrear triângulos pintados (usando strings de IDs de vértices)
+
     const cores = [
-        "#f0ff00", "#ff0000", "#00ff00", "#ff00ff", "#00ffff",
-        "#800000", "#808000", "#008080", "#800080", "#ff8000", "#80ff00",
-        "#00ff80", "#8000ff", "#ff0080", "#ff8080", "#80ff80",
-        "#8080ff", "#ffff80"
-    ];
+        "#f0ff00", "#ff0000", "#00ff00", "#ff00ff", "#00ffff", "#800000",
+        "#808000", "#008080", "#800080", "#ff8000", "#80ff00", "#00ff80",
+        "#8000ff", "#ff0080", "#ff8080", "#80ff80", "#8080ff", "#ffff80",
+        "#80ffff", "#ff80ff", "#ff80ff", "#ffff00", "#00ffff", "#0000ff"
+        ];
+
     let originalCursorColor = canvas.style.cursor;
     const precisaoSelecao = 15; // Aumenta a precisão para seleção de vértices
     let mensagemPintarExibida = false;
+    let modoPinturaAtivo = false;
 
     document.getElementById("pintarElementos").addEventListener("click", () => {
-        if (!pinturaConcluida && vertices.length >= 3) {
-            exibirMensagemComSeletor("Selecione a cor para o próximo triângulo:");
-            selectedVerticesForTriangle = []; // Reinicia a seleção de vértices
-            canvas.addEventListener("click", selecionarVerticePintura); // Ativa a seleção de vértices para pintura
-        } else if (vertices.length < 3) {
-            exibirMensagemTemporaria("Adicione pelo menos <strong> 3 vértices </strong> para pintar.");
-        } else {
-            exibirMensagemTemporaria("Figura concluída com sucesso! Clique em Salvar para prosseguir.");
-            setTimeout(() => {
-                document.getElementById("salvar").disabled = false;
-            }, 500);
+        if (vertices.length < 3) {
+            exibirMensagemTemporaria("Adicione pelo menos <strong> três pontos </strong> para pintar.");
+            return;
         }
+        modoPinturaAtivo = true;
+        iniciarSelecaoDeCor();
     });
+
+    function iniciarSelecaoDeCor() {
+        exibirMensagemComSeletor("Selecione a cor do triângulo:");
+    }
 
     function encontrarVerticeProximo(x, y) {
         if (!vertices) return null;
@@ -42,6 +43,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function selecionarVerticePintura(event) {
+        if (!modoPinturaAtivo) return;
+
         const rect = canvas.getBoundingClientRect();
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
@@ -49,12 +52,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (verticeSelecionado && !selectedVerticesForTriangle.includes(verticeSelecionado)) {
             selectedVerticesForTriangle.push(verticeSelecionado);
-            // Realiza a pintura se três vértices forem selecionados
             if (selectedVerticesForTriangle.length === 3) {
                 paintTriangle();
             } else if (selectedVerticesForTriangle.length > 3) {
-                selectedVerticesForTriangle = [verticeSelecionado]; // Reinicia se mais de 3 forem selecionados
-                exibirMensagemTemporaria("Selecione exatamente <strong> três vértices </strong> para um triângulo.");
+                selectedVerticesForTriangle = [verticeSelecionado];                
             }
         } else if (verticeSelecionado && selectedVerticesForTriangle.includes(verticeSelecionado)) {
             exibirMensagemTemporaria("Este vértice já foi selecionado para este triângulo.");
@@ -77,14 +78,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!v1 || !v2 || !v3) {
             console.warn("Três vértices não foram selecionados corretamente.");
-            exibirMensagemTemporaria("Selecione <strong> três vértices </strong> para pintar um triângulo.");
             selectedVerticesForTriangle = [];
+            // Reativa a seleção de vértices
+            canvas.addEventListener("click", selecionarVerticePintura);
             return;
         }
 
         if (verificarTrianguloPintado(v1, v2, v3)) {
             exibirMensagemTemporaria("Esse triângulo já foi colorido, escolha outro.");
             selectedVerticesForTriangle = [];
+            // Reativa a seleção de vértices
+            canvas.addEventListener("click", selecionarVerticePintura);
             return;
         }
 
@@ -99,34 +103,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
         paintedTriangles.add(keyTriangulo);
         selectedVerticesForTriangle = [];
+        canvas.removeEventListener("click", selecionarVerticePintura);
+        modoPinturaAtivo = false;
 
-        // A condição para pintura concluída agora depende do número de triângulos possíveis (n-2)
         if (paintedTriangles.size === Math.max(0, vertices.length - 2)) {
             pinturaConcluida = true;
             document.getElementById("addVertex").disabled = true;
             document.getElementById("addEdge").disabled = true;
             document.getElementById("pintarElementos").disabled = true;
-            canvas.removeEventListener("click", selecionarVerticePintura);
-            exibirMensagemPinturaConcluida(); // Chama a função modificada
+            setTimeout(() => {
+                exibirMensagemTemporaria("Pintura concluída!<br> Clique em Salvar<br> para prosseguir" );
+            }, 5000);
         } else {
-            exibirMensagemComSeletor("Selecione a cor para o próximo triângulo:");
+            exibirMensagemTemporaria("Triângulo pintado! Clique em <strong> Pintar Elementos </strong> para o próximo triângulo.");
         }
     }
 
     function exibirMensagemTemporaria(mensagem) {
         const mensagensDiv1 = document.getElementById("mensagens");
         if (!mensagensDiv1) return;
-        mensagensDiv1.textContent = mensagem;
+        mensagensDiv1.innerHTML = mensagem; // Permite HTML na mensagem para o <strong>
         mensagensDiv1.style.display = "flex";
         mensagensDiv1.style.justifyContent = "center";
-        mensagensDiv1.style.fontSize = "14px"; // Reduz a fonte para 14px
+        mensagensDiv1.style.fontSize = "20px";
         mensagensDiv1.style.alignItems = "center";
         mensagensDiv1.style.width = "80%";
         mensagensDiv1.style.height = "auto";
         mensagensDiv1.style.background = "linear-gradient(to right, #ff7e5f, #feb47b)";
         setTimeout(() => {
             mensagensDiv1.style.display = "none";
-        }, 3000);
+        }, 5000);
     }
 
     function exibirMensagemComSeletor(mensagem) {
@@ -141,18 +147,20 @@ document.addEventListener("DOMContentLoaded", () => {
         mensagensDiv1.style.alignItems = "center";
         mensagensDiv1.style.justifyContent = "flex-start";
         mensagensDiv1.style.borderRadius = "20px";
-        mensagensDiv1.style.padding = "5px";
+        mensagensDiv1.style.padding = "2px";
         mensagensDiv1.style.width = "auto";
-        mensagensDiv1.style.height = "160px";
+        mensagensDiv1.style.height = "150px";
         mensagensDiv1.style.maxWidth = "80%";
-        mensagensDiv1.style.maxHeight = "160%";
+        mensagensDiv1.style.maxHeight = "150%";
         mensagensDiv1.style.overflowY = "auto";
+        mensagensDiv1.style.background = "linear-gradient(to right, #ff7e5f, #feb47b)";
         mensagensDiv1.style.marginBottom = "20px";
+        mensagensDiv1.style.marginTop = "5px";
 
         const mensagemTexto = document.createElement("p");
         mensagemTexto.textContent = mensagem;
         mensagemTexto.style.textAlign = "center";
-        mensagemTexto.style.marginBottom = "5px";
+        mensagemTexto.style.marginBottom = "15px";
         mensagemTexto.style.fontSize = "14px";
         mensagensDiv1.appendChild(mensagemTexto);
 
@@ -160,11 +168,11 @@ document.addEventListener("DOMContentLoaded", () => {
         tabela.className = "color-table";
         tabela.style.width = "auto";
         tabela.style.tableLayout = "fixed";
-        tabela.style.marginBottom = "5px";
+        tabela.style.marginBottom = "15px";
 
         let row;
-        const numCoresPorLinha = 6; // Ajustado para 6 colunas
-        const fatorReducao = 0.65;
+        const numCoresPorLinha = 8;
+        const fatorReducao = 0.6;
         const novoTamanhoBotao = 20 * fatorReducao;
 
         cores.forEach((cor, index) => {
@@ -186,6 +194,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("addVertex").disabled = true;
                 document.getElementById("addEdge").disabled = true;
                 mensagensDiv1.style.display = "none"; // Fecha o seletor após escolher a cor
+                const mensagenspint = document.getElementById("t-pintar");
+                mensagenspint.style.display = "block";
             });
             cell.appendChild(button);
         });
@@ -197,52 +207,13 @@ document.addEventListener("DOMContentLoaded", () => {
             entries.forEach(entry => {
                 const divHeight = entry.contentRect.height;
                 if (divHeight < 180) {
-                    mensagemTexto.style.fontSize = "14px";
+                    mensagemTexto.style.fontSize = "16px";
                 } else {
-                    mensagemTexto.style.fontSize = "14px";
+                    mensagemTexto.style.fontSize = "16px";
                 }
             });
         });
         observer.observe(mensagensDiv1);
-    }
-
-    function exibirMensagemPinturaConcluida() {
-        const mensagensDiv1 = document.getElementById("mensagens");
-        if (!mensagensDiv1) return;
-        mensagensDiv1.style.display = "flex";
-        mensagensDiv1.style.justifyContent = "center";
-        mensagensDiv1.style.fontSize = "14px";
-        mensagensDiv1.style.alignItems = "center";
-        mensagensDiv1.style.width = "80%";
-        mensagensDiv1.style.height = "auto"; // Ajustado para auto para melhor responsividade
-        mensagensDiv1.style.background = "linear-gradient(to right, #ff7e5f, #feb47b)";
-        mensagensDiv1.textContent = "Figura concluída com sucesso!";
-
-        // Após 3.5 segundos, fecha a mensagem de conclusão e exibe a mensagem para salvar
-        setTimeout(() => {
-            mensagensDiv1.style.display = "none";
-            exibirMensagemTemporaria("Clique em <strong> Salvar </strong> para prosseguir.");
-
-            // Adiciona um ouvinte para o evento de clique no botão "Salvar"
-            const botaoSalvar = document.getElementById("salvar");
-            if (botaoSalvar) {
-                const originalSalvarClickListener = botaoSalvar.onclick; // Salva o ouvinte original, se existir
-
-                botaoSalvar.onclick = function() {
-                    // Chama o ouvinte original do botão "Salvar", se houver
-                    if (originalSalvarClickListener) {
-                        originalSalvarClickListener.call(this);
-                    }
-                    mensagensDiv1.style.display = "none"; // Fecha a mensagem "Clique em Salvar..."
-                    PoligonoRegular(); // Chama a função PoligonoRegular
-                    // Restaura o ouvinte original para evitar comportamentos inesperados em cliques futuros
-                    botaoSalvar.onclick = originalSalvarClickListener;
-                };
-                botaoSalvar.disabled = false; // Garante que o botão "Salvar" esteja habilitado
-            } else {
-                console.error("Botão com id 'salvar' não encontrado.");
-            }
-        }, 3500);
     }
 
     // Adiciona um ouvinte de evento para verificar quando todas as arestas foram construídas
