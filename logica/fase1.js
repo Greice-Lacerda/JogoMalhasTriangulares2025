@@ -103,7 +103,7 @@ function iniciarJogo() {
             numVertices = 0;
             return;
         }
-        const mensagemMalha = '<span class="blink"> Clique na <strong> malha </strong> <br> e insira <strong>' + numVertices + '</strong> pontos.</span>.';
+        const mensagemMalha = '<span class="blink"> Clique na <br><strong><u>malha quadriculada</u></strong><br> e insira <strong>'+ numVertices +'</strong> pontos.</span>.';
         exibirMensagemTemporaria(mensagemMalha, "mensagem-azul");
         canvas.addEventListener("click", addVertice);
     }
@@ -124,7 +124,7 @@ function addVertice(event) {
         canvas.removeEventListener("click", addVertice);
         document.getElementById("addVertex").disabled = true;
         fecharMensagemTemporaria();
-        const mensagemArestas = '<span class="blink"> Clique no botão <br> <strong> Adicionar Aresta </strong> <br> para ligar dois pontos.</span>';
+        const mensagemArestas = '<span class="blink"> Clique no botão <br> <strong> <u>Adicionar Aresta</u> </strong> <br> para ligar dois pontos.</span>';
         exibirMensagemTemporaria(mensagemArestas, "mensagem-azul");
         document.getElementById("addEdge").disabled = false;
     }
@@ -133,7 +133,7 @@ function addVertice(event) {
 document.getElementById("addEdge").addEventListener("click", function() {
     canvas.addEventListener("click", selectVertices);
     fecharMensagemTemporaria();
-    const mensagemAresta = '<span class="blink"> Clique em <strong> dois pontos </strong> <br> para adicionar arestas externas e internas.</span>';
+    const mensagemAresta = '<span class="blink"> Clique em <strong> <u>dois pontos</u> </strong> <br> para adicionar arestas externas e internas.</span>';
     exibirMensagemTemporaria(mensagemAresta, "mensagem-verde");
 });
 
@@ -176,12 +176,12 @@ function addAresta() {
             canvas.removeEventListener("click", selectVertices);
             document.getElementById("addEdge").disabled = true;
             fecharMensagemTemporaria();
-            const mensagemPintar = '<span class="blink"> Clique no botão <br> <strong> Pintar Elementos <br> </strong> para colorir os triângulos.</span>';
+            const mensagemPintar = '<span class="blink"> Clique no botão <br> <strong> <u>Pintar Elementos </u> <br> </strong> para colorir os triângulos.</span>';
             exibirMensagemTemporaria(mensagemPintar, "mensagem-azul");
             document.getElementById("pintarElementos").disabled = false;
         } else {
             canvas.addEventListener("click", selectVertices);
-            const mensagemAresta = '<span class="blink"> Clique em <strong> dois pontos </strong> <br> para adicionar arestas internas e externas.</span>';
+            const mensagemAresta = '<span class="blink"> Clique em <strong> <u> dois pontos </u></strong> <br> para adicionar arestas internas e externas.</span>';
             exibirMensagemTemporaria(mensagemAresta, "mensagem-azul");
         }
     }

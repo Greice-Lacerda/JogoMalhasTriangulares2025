@@ -487,17 +487,17 @@ legend {
 
 .mensagem-vermelha {
   color: rgb(73, 4, 4);
-  font-size: 28px;
+  font-size: 26px;
 }
 
 .mensagem-white {
-  font-size: 28px;
+  font-size: 26px;
   color: rgb(16, 5, 40);
   text-shadow: #0b1284;
 }
 
 .mensagem-azul {
-  font-size: 28px;
+  font-size: 26px;
   color: rgb(3, 13, 32);
 }
 
@@ -522,19 +522,19 @@ legend {
 .mensagensDiv1 {
   background-color: transparent;
   color: rgb(13, 1, 1);
-  padding: 20px;
+  padding: 15px;
   margin-left: 2px;
   border-radius: 30px;
-  width: 100px;
-  height: 200px; 
+  width: 100%;
+  height: 200%; 
   font-size: 20px;
 }
 
 .mensagemTexto {
   align-items: column;
   font-size: 20px;
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 100%;
   border-radius: 14px;
 }
 

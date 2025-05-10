@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("pintarElementos").addEventListener("click", () => {
         if (vertices.length < 3) {
-            exibirMensagemTemporaria("Adicione pelo menos <strong> três pontos </strong> para pintar.");
+            exibirMensagemTemporaria("Adicione pelo menos <u> três pontos </u> para pintar.");
             return;
         }
         modoPinturaAtivo = true;
@@ -112,11 +112,15 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("addEdge").disabled = true;
             document.getElementById("pintarElementos").disabled = true;
             setTimeout(() => {
-                exibirMensagemTemporaria("Pintura concluída!<br> Clique em Salvar<br> para prosseguir" );
-            }, 5000);
+                exibirMensagemTemporaria("Pintura concluída!<br> Clique em <u> Salvar </u> para prosseguir" );
+            }, 1000);
         } else {
-            exibirMensagemTemporaria("Triângulo pintado! Clique em <strong> Pintar Elementos </strong> para o próximo triângulo.");
+            exibirMensagemTemporaria("Triângulo pintado!<br> Clique no botão<span><strong><u>Pintar Elementos</u></strong></span>para continuar.");
         }
+        mensagensDiv.textContent = "Clique no botão <br> <u> Pintar Elementos </u> <br> para escolher nova cor.";
+    mensagensDiv.style.display = "flex";
+    mensagensDiv.style.justifyContent = "center";
+    mensagensDiv.style.alignItems = "center";
     }
 
     function exibirMensagemTemporaria(mensagem) {
@@ -148,19 +152,19 @@ document.addEventListener("DOMContentLoaded", () => {
         mensagensDiv1.style.justifyContent = "flex-start";
         mensagensDiv1.style.borderRadius = "20px";
         mensagensDiv1.style.padding = "2px";
-        mensagensDiv1.style.width = "auto";
-        mensagensDiv1.style.height = "150px";
-        mensagensDiv1.style.maxWidth = "80%";
-        mensagensDiv1.style.maxHeight = "150%";
+        mensagensDiv1.style.width = "76%"; // Faz a div ocupar toda a largura disponível do pai
+        mensagensDiv1.style.maxWidth = "78%"; // Garante que não exceda a largura do pai
+        mensagensDiv1.style.height = "76%"; // Ajusta a altura automaticamente
+        mensagensDiv1.style.maxHeight = "78%";
         mensagensDiv1.style.overflowY = "auto";
         mensagensDiv1.style.background = "linear-gradient(to right, #ff7e5f, #feb47b)";
-        mensagensDiv1.style.marginBottom = "20px";
+        mensagensDiv1.style.marginBottom = "15px";
         mensagensDiv1.style.marginTop = "5px";
 
         const mensagemTexto = document.createElement("p");
         mensagemTexto.textContent = mensagem;
         mensagemTexto.style.textAlign = "center";
-        mensagemTexto.style.marginBottom = "15px";
+        mensagemTexto.style.marginBottom = "10px";
         mensagemTexto.style.fontSize = "14px";
         mensagensDiv1.appendChild(mensagemTexto);
 
@@ -194,8 +198,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("addVertex").disabled = true;
                 document.getElementById("addEdge").disabled = true;
                 mensagensDiv1.style.display = "none"; // Fecha o seletor após escolher a cor
-                const mensagenspint = document.getElementById("t-pi");
+                const mensagenspint = document.getElementById("mensagens");
                 mensagenspint.style.display = "block";
+                mensagenspint.style.textAlign = "center";
+                mensagenspint.style.width = "76%"; // Faz a div ocupar toda a largura disponível do pai
+                mensagenspint.style.maxWidth = "78%"; // Garante que não exceda a largura do pai
+                mensagenspint.style.height = "76%"; // Ajusta a altura automaticamente
+                mensagenspint.style.maxHeight = "78%";
+                mensagenspint.style.overflowY = "auto";
+                mensagenspint.style.padding = "5px";
+                mensagenspint.innerHTML = "Selecione <b><u>três vértices</u></b> para pintar um triângulo";
             });
             cell.appendChild(button);
         });
@@ -227,7 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
             // Verifica se o botão "Adicionar Aresta" está desabilitado, o que indica que todas as arestas foram construídas
             if (this.disabled && !mensagemPintarExibida) {
-                exibirMensagemTemporaria("Clique no Botão <strong> Pintar Elementos </strong> para colorir a figura.");
+                exibirMensagemTemporaria("Clique no Botão <br><span><b><u>Pintar Elementos</u></b></span><br> para colorir a figura.");
                 mensagemPintarExibida = true;
             }
         };
