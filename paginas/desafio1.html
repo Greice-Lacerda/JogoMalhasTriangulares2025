@@ -1,77 +1,59 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desafio 1 - Construindo Polígonos</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Triangularizando e Aprendendo - Quiz Geométrico 1</title>
     <link rel="stylesheet" href="../estilos/fase1.css">
+    <link rel="stylesheet" href="../estilos/desafio1.css"/>
     <meta name="description" content="Jogo educativo de vértices e polígonos. Aprenda geometria de forma divertida!">
     <meta name="keywords" content="jogo, vértices, polígonos, geometria, educativo">
     <meta name="author" content="Pablo e Greice">
+    <script defer src="../logica/desafio1.js"></script>
+    <script defer src="../logica/perguntas.js"></script>
 </head>
 <body>
     <header>
-        <h1>Triangularizando e Aprendendo - Fase 1</h1>
+        <h1>Triangularizando e Aprendendo - Quiz Geométrico 1</h1>
     </header>
     <main id="game-container">
         <aside id="sidebar">
             <fieldset id="orientacao">
-                <legend><strong>Instruções:</strong></legend>                
-                    <img src="../imagens/Logo.png" id="img1" alt="Logo do jogo">
-                    <div class="texto-na-frente"> 
-                        <section>
-                            <h3 id="t-bem">Fase 1 – Polígonos</h3>
-                                <div>
-                                    <div id='mensagens'>
-                                        <p id="t-jogo">Clique no botão <strong><span class="blink"><u>Adicionar Vértice</u></span></strong> para escolher a quantidade de pontos.</p>
-                                            <div class="mensagens-div mensagensDiv1">
-                                                <p id="mensagem-texto" class="mensagem-texto mensagemTexto msgDiv blink"></p>
-                                            </div> 
-                                    </div>
-                                </div>
-                        </section>
-                    </div>                              
+                <legend><strong>Comentários das Perguntas:</strong></legend>
+                <img src="../imagens/Logo.png" id="img1" alt="Logo do jogo">
+                <div class="texto-na-frente">
+                    <section>
+                        <h3 id="t-bem">Quiz 1 – Polígonos</h3>
+                        <p id="quiz">Neste quiz, você irá responder perguntas sobre polígonos. Responda "Sim" ou "Não" e leia os comentários.</p>
+                        <div id="Respostas"></div>
+                        <div id="resultado"></div>
+                    </section>
+                </div>
             </fieldset>
         </aside>
         <section>
-            <fieldset id="tela">
-                <legend><strong>Malha:</strong></legend>
-                <canvas id="gameCanvas"></canvas>
+        <fieldset id="orientacao">
+            <legend><strong>Perguntas do Quiz 1 - Polígonos:</strong></legend>
+                <div id="quiz-container" class="controls1">
+                    <div id="pergunta" >
+                    <div class="imgQuiz" style="opacity: 0.5; display:none;"><img src="../imagens/malhas.gif" id="imgQuiz"></div>
+                    </div>
+                </div>
+        </fieldset>
+        </section>
+        <section>
+            <fieldset id="orientacao">
+                <legend><b>Menu:</b></legend>
+                    <div class="controls">                        
+                        <button id="instruções" onclick="window.location.href='./index.html'"><strong>Voltar</strong></button>
+                        <button id="Sair" onclick="window.location.href='https://www.google.com.br'"><strong>Sair</strong></button></div>
+                        <div id="proximoFase" class="controls"><button style="display: none" onclick="window.location.href='./desafio2.html'"><strong>Próximo Desafio</strong></button></div>
+                        <div id="ReiniciarFase" class="controls"><button style="display: none" onclick="window.location.href='./desafio1.html'"><strong>Reiniciar Quiz</strong></button></div>
             </fieldset>
         </section>
-        
-        <section>
-            <fieldset class="controls">
-                <legend><strong>Controles:</strong></legend>
-                <div class="draggable" id="addVertex" draggable="true">
-                    <button class="paint-button"><img src="../imagens/ponto-final.png" class="icon" alt="Ícone de ponto">Adicionar Vértice</button>
-                </div>
-                <div class="draggable" id="addEdge" draggable="true">
-                    <button class="paint-button"><img src="../imagens/reta.png" class="icon" alt="Ícone de reta">Adicionar Aresta</button>
-                </div>
-                <div class="draggable" id="pintar" draggable="true">
-                    <button id="pintarElementos"><img src="../imagens/pincel.png" class="pincel" alt="Ícone de pincel">Pintar Elementos</button>
-                </div>
-            
-            <div class="controls1">
-               <legend><b>Menu:</b></legend>
-                <button id="resetButton"><strong>Resetar</strong></button>
-                <button id="salvarJogo"><strong>Salvar</strong></button>
-                <button id="Imprimir" onclick="window.location.href='./imprimir.html'"><strong>Imprimir</strong></button>
-                <button id="instruções" onclick="window.location.href='./instrucao.html'"><strong>Voltar</strong></button>
-                <button id="Sair" onclick="window.location.href='https://www.google.com.br'"><strong>Sair</strong></button></fieldset>
-            </div>
-        </section>
     </main>
-    
-    <footer>
-        Criado por Pablo e Greice em 2025
-    </footer>
-        <script src="../logica/fase1.js"></script>
-        <script src="../logica/desafio1.js"></script>
-        <script src="../logica/pintar.js"></script>
-        <script src="../logica/resetar.js"></script>    
-        <script src="../logica/salvar.js"></script>
-        <script src="../logica/imprimir.js"></script>
-        </body>
+        <footer>
+            Criado por Pablo e Greice em 2025
+        </footer>
+</body>
 </html>

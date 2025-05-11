@@ -294,7 +294,7 @@ legend {
   padding: 2px;
   font-size: 18px; 
   cursor: pointer; 
-  border: outset 5px rgb(151, 151, 181);   
+  border: outset solid 5px rgb(181, 169, 151);   
   border-radius: 5px;
   background: linear-gradient(45deg,#006782 40%, #0b1284 50%, #760ea1 60%, #83096e);
   color: white;
@@ -372,7 +372,7 @@ legend {
   height: 30px;
   padding: 4px;
   margin-bottom: 2px;
-  border: outset yellow;
+  border: outset solid 8px yellow;
   background: linear-gradient(45deg,#0a0a09 15%,#5f7717 35%,#30382b 75%,#c05d20 10%);
   color: white;
 }

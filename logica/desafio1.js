@@ -1,91 +1,198 @@
-import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+const quizContainer = document.getElementById('quiz-container'); // Container das perguntas (AJUSTADO)
+const resultadoDiv = document.getElementById('resultado'); // Container do resultado final
+const proximoFaseDiv = document.getElementById('proximoFase'); // Seleciona a div que já contém o botão
+const reiniciarFaseDiv = document.getElementById('ReiniciarFase'); // Seleciona a div que já contém o botão
+const comentarioDiv = document.getElementById('Respostas'); // Container para exibir as respostas e comentários
+const perguntaDivElement = document.getElementById('pergunta'); // Seleciona a div da pergunta para manipulação da imagem (AJUSTADO)
+let pontuacao = 0;
+let indicePergunta = 0;
+let imagemQuizDiv = 0; // Parece não ser usado
 
-// Configuração básica do Three.js
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ antialias: true });
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.getElementById('game-container').appendChild(renderer.domElement);
+const perguntas = [
+    {
+        pergunta: "Um triângulo possui 3 vértices?",
+        resposta: true,
+        comentario: "Resposta: Um triângulo é um polígono com três lados e, consequentemente, três vértices, que são os pontos de encontro desses lados."
+    },
+    {
+        pergunta: "Um quadrado possui 5 arestas?",
+        resposta: false,
+        comentario: "Resposta: Um quadrado possui 4 arestas (os lados) e 4 vértices. Arestas são os segmentos de reta que conectam os vértices."
+    }/*,
+    {
+        pergunta: "Um cubo é uma figura plana?",
+        resposta: false,
+        comentario: "Incorreto. Um cubo é um sólido geométrico tridimensional (possui largura, altura e profundidade) com 6 faces quadradas, 12 arestas e 8 vértices. Figuras planas existem em duas dimensões."
+    },
+    {
+        pergunta: "Um pentágono regular possui todos os lados e ângulos iguais?",
+        resposta: true,
+        comentario: "Correto! A característica de um polígono regular é ter todos os seus lados com o mesmo comprimento e todos os seus ângulos internos com a mesma medida."
+    },
+    {
+        pergunta: "Um polígono côncavo possui todos os seus ângulos internos menores que 180 graus?",
+        resposta: false,
+        comentario: "Incorreto. Um polígono côncavo possui pelo menos um ângulo interno maior que 180 graus. Em contraste, um polígono convexo tem todos os seus ângulos internos menores que 180 graus."
+    },
+    {
+        pergunta: "Um círculo é considerado um polígono?",
+        resposta: false,
+        comentario: "Incorreto. Polígonos são figuras fechadas formadas por segmentos de reta (arestas). Um círculo é uma curva fechada onde todos os pontos estão à mesma distância do centro."
+    },
+    {
+        pergunta: "As faces de um tetraedro regular são triângulos equiláteros?",
+        resposta: true,
+        comentario: "Correto! Um tetraedro regular é um sólido platônico com quatro faces que são triângulos equiláteros congruentes."
+    },
+    {
+        pergunta: "Um octógono possui 6 vértices?",
+        resposta: false,
+        comentario: "Incorreto. O prefixo 'octo' significa oito. Portanto, um octógono possui 8 lados e 8 vértices."
+    },
+    {
+        pergunta: "Um polígono não regular não pode ser convexo?",
+        resposta: false,
+        comentario: "Incorreto. Um polígono pode ser convexo mesmo que seus lados e ângulos não sejam todos iguais. A convexidade depende de se todos os segmentos de reta que conectam dois pontos quaisquer dentro do polígono também estão inteiramente contidos dentro dele."
+    },
+    {
+        pergunta: "Uma reta é formada por infinitos vértices?",
+        resposta: true,
+        comentario: "Correto! Embora uma reta não seja um polígono (pois não é fechada), podemos pensar nela como sendo composta por uma infinidade de pontos, que poderiam ser considerados como vértices em um sentido mais amplo."
+    }*/
+];
 
-// Adicionar luz direcional
-const light = new THREE.DirectionalLight(0xffffff, 1);
-light.position.set(5, 5, 5).normalize();
-scene.add(light);
+function exibirPergunta() {
+    if (indicePergunta < perguntas.length) {
+        const perguntaAtual = perguntas[indicePergunta];
+        const perguntaDiv = document.createElement('div');
+        perguntaDiv.classList.add('pergunta');
+        perguntaDiv.innerHTML = `<p>${perguntaAtual.pergunta}</p>`;
+        const botoesDiv = document.createElement('div');
+        botoesDiv.classList.add('botoes-pergunta');
+        botoesDiv.innerHTML = `
+            <button onclick="responder(true)">Sim</button>
+            <button onclick="responder(false)">Não</button>
+        `;
 
-// Adicionar luz ambiente
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-scene.add(ambientLight);
+        perguntaDiv.appendChild(botoesDiv);
+        quizContainer.appendChild(perguntaDiv);
+        comentarioDiv.innerHTML = ''; // Limpa as respostas/comentários anteriores
+    } else {
+        exibirResultado();
+    }
+}
 
-// Função para criar uma malha triangular simples com vértices interativos
-function createTriangleMesh(size) {
-    const geometry = new THREE.BufferGeometry();
-    const vertices = new Float32Array([
-        0, 0, 0,
-        size, 0, 0,
-        0, size, 0
-    ]);
-    geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, side: THREE.DoubleSide });
-    const mesh = new THREE.Mesh(geometry, material);
+function responder(respostaUsuario) {
+    const perguntaAtual = perguntas[indicePergunta];
+    const perguntaDiv = quizContainer.querySelector('.pergunta');
+    const botoesDiv = quizContainer.querySelector('.botoes-pergunta');
+    const respostaDiv = document.createElement('div');
+    respostaDiv.classList.add('resposta-feedback'); // Adiciona a classe base para o estilo
 
-    // Adicionar vértices interativos
-    const vertexMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-    for (let i = 0; i < vertices.length; i += 3) {
-        const vertexGeometry = new THREE.SphereGeometry(0.05, 32, 32);
-        const vertex = new THREE.Mesh(vertexGeometry, vertexMaterial);
-        vertex.position.set(vertices[i], vertices[i + 1], vertices[i + 2]);
-        vertex.userData = { interactive: true };
-        scene.add(vertex);
+    if (respostaUsuario === perguntaAtual.resposta) {
+        pontuacao++;
+        respostaDiv.innerHTML = `<p><strong>A sua resposta está correta!</strong><br><br>${perguntaAtual.comentario}</p>`;
+        respostaDiv.classList.add('correta'); // Adiciona classe para resposta correta
+    } else {
+        respostaDiv.innerHTML = `<p><strong>A sua resposta está incorreta!</strong><br><br>${perguntaAtual.comentario}</p>`;
+        respostaDiv.classList.add('incorreta'); // Adiciona classe para resposta incorreta
+        const audio2 = new Audio('../sons/Erro.mp3'); // Certifique-se de ter o arquivo 'aplausos.mp3' na pasta correta
+        audio2.play();
     }
 
-    return mesh;
+    comentarioDiv.appendChild(respostaDiv);
+
+    // Remover botões "Sim" e "Não"
+    botoesDiv.remove();
+
+    // Container para o próximo botão
+    const proximoBotaoContainer = document.createElement('div');
+    proximoBotaoContainer.classList.add('proximo-botao-container');
+
+    let proximoBotao; // Variável para o botão "Próxima Pergunta" ou "Finalizar Quiz"
+
+    // Verificar se o número de perguntas respondidas é igual a 9 (para que a próxima seja a décima)
+    if (indicePergunta === perguntas.length - 1) {
+        // Criar e exibir o botão "Finalizar Quiz"
+        proximoBotao = document.createElement('button');
+        proximoBotao.textContent = 'Finalizar Quiz';
+        proximoBotao.classList.add('proximo-botao-estilo'); // Adiciona a classe de estilo
+        proximoBotao.onclick = () => {
+            quizContainer.innerHTML = ''; // Limpa a pergunta atual
+            exibirResultado();
+        };
+    } else {
+        // Criar e exibir o botão "Próxima Pergunta"
+        proximoBotao = document.createElement('button');
+        proximoBotao.textContent = 'Próxima Pergunta';
+        proximoBotao.classList.add('proximo-botao-estilo'); // Adiciona a classe de estilo
+        proximoBotao.onclick = () => {
+            quizContainer.innerHTML = ''; // Limpa a pergunta atual
+            indicePergunta++;
+            exibirPergunta();
+        };
+    }
+
+    proximoBotaoContainer.appendChild(proximoBotao);
+    perguntaDiv.appendChild(proximoBotaoContainer);
 }
 
-// Adicionar a malha à cena
-let triangleMesh = createTriangleMesh(1);
-scene.add(triangleMesh);
+const proximoFaseButton = proximoFaseDiv.querySelector('button'); // Seleciona o botão dentro da div
+const ReiniciarButton = reiniciarFaseDiv.querySelector('button'); // Seleciona o botão dentro da div
 
-// Posicionar a câmera
-camera.position.set(0, 0, 5);
+function exibirResultado() {
+    const audio1 = new Audio('../sons/Aplausos.mp3'); // Certifique-se de ter o arquivo 'aplausos.mp3' na pasta correta
+    const audio3 = new Audio('../sons/Fim.mp3');
+    const totalPerguntas = perguntas.length;
+    const porcentagemAcerto = (pontuacao / totalPerguntas) * 100;
+    comentarioDiv.innerHTML = '';
+    if (document.getElementById('imgQuiz')) {
+        document.getElementById('imgQuiz').style.display = 'block'; // Mostra a imagem do quiz
+    }
+    resultadoDiv.style.textAlign = 'center';
+    resultadoDiv.style.backgroundColor = 'rgba(81, 169, 245, 0.8)';    
+    resultadoDiv.style.boxShadow = ' #0c0601 12px 12px 10px'; // Sombra para os botões}
+    resultadoDiv.style.padding = '15px';
+    resultadoDiv.style.borderRadius = '5px';
+    resultadoDiv.style.marginLeft = '-10px';
+    resultadoDiv.style.marginRight = '100px';
 
-// Adicionar controles de órbita
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true; // Habilitar amortecimento (inércia)
-controls.dampingFactor = 0.25; // Fator de amortecimento
-controls.screenSpacePanning = false; // Desabilitar o movimento de panning
-controls.maxPolarAngle = Math.PI / 2; // Limitar o ângulo polar
+    // Exibir o botão "Próximo Desafio" se a pontuação for >= 60%
+    if (porcentagemAcerto >= 60) {
+        audio1.play();
+        resultadoDiv.innerHTML = `<span style="color: red; font-weight: bold; font-size: 32px; text-decoration: underline; animation: blink 1s infinite;">Parabéns!</span><br> Você acertou ${pontuacao} de ${totalPerguntas} perguntas.
+        <br> (${porcentagemAcerto.toFixed(2)}% de acerto.) <br><br>Clique em <span style="color: black; font-weight: bold; text-decoration: underline;">Próximo Desafio</span> para continuar!`;
+        proximoFaseButton.style.display = 'block';
+        ReiniciarButton.style.display = 'none';
 
-// Função de animação
-function animate() {
-    requestAnimationFrame(animate);
-    controls.update();
-    renderer.render(scene, camera);
+        // Adicionar confetes
+        gerarConfetes();
+
+    } else {
+        audio3.play();
+        resultadoDiv.innerHTML = `<span style="color: red; font-weight: bold; font-size: 32px; text-decoration: underline; animation: blink 1s infinite;">Que Pena!</span><br> Você acertou ${pontuacao} de ${totalPerguntas} perguntas.
+        <br> (${porcentagemAcerto.toFixed(2)}% de acerto.) <br><br>Clique em <span style="color: black; font-weight: bold; text-decoration: underline;">Reiniciar</span> para tentar novamente.`;
+        proximoFaseButton.style.display = 'none';
+        ReiniciarButton.style.display = 'block';
+    }
 }
 
-animate();
+// Função para gerar confetes
+function gerarConfetes() {
+    const container = document.getElementById('game-container'); // Ou outro container de sua preferência
+    const numConfetes = 200;
 
-// Adicionar evento de clique para os vértices interativos
-window.addEventListener('click', (event) => {
-    const mouse = new THREE.Vector2();
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    for (let i = 0; i < numConfetes; i++) {
+        const confete = document.createElement('div');
+        confete.classList.add('confete');
+        confete.style.left = `${Math.random() * 100}vw`;
+        confete.style.animationDelay = `${Math.random()}s`;
+        confete.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        container.appendChild(confete);
+    }
+}
 
-    const raycaster = new THREE.Raycaster();
-    raycaster.setFromCamera(mouse, camera);
-
-    const intersects = raycaster.intersectObjects(scene.children);
-    intersects.forEach((intersect) => {
-        if (intersect.object.userData.interactive) {
-            intersect.object.material.color.set(0x0000ff); // Mudar a cor ao clicar
-        }
-    });
-});
-
-// Adicionar evento para criar uma nova malha com o tamanho especificado
-document.getElementById('create-mesh').addEventListener('click', () => {
-    const size = parseFloat(document.getElementById('mesh-size').value);
-    scene.remove(triangleMesh);
-    triangleMesh = createTriangleMesh(size);
-    scene.add(triangleMesh);
-});
+// Iniciar o quiz somente se o container de perguntas estiver presente no DOM
+if (quizContainer) {
+    exibirPergunta();
+}
