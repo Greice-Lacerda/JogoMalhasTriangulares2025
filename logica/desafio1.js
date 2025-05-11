@@ -17,7 +17,7 @@ const perguntas = [
         pergunta: "Um quadrado possui 5 arestas?",
         resposta: false,
         comentario: "Resposta: Um quadrado possui 4 arestas (os lados) e 4 vértices. Arestas são os segmentos de reta que conectam os vértices."
-    }/*,
+    },
     {
         pergunta: "Um cubo é uma figura plana?",
         resposta: false,
@@ -57,7 +57,7 @@ const perguntas = [
         pergunta: "Uma reta é formada por infinitos vértices?",
         resposta: true,
         comentario: "Correto! Embora uma reta não seja um polígono (pois não é fechada), podemos pensar nela como sendo composta por uma infinidade de pontos, que poderiam ser considerados como vértices em um sentido mais amplo."
-    }*/
+    }
 ];
 
 function exibirPergunta() {
