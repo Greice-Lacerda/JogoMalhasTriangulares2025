@@ -6,7 +6,6 @@ const comentarioDiv = document.getElementById('Respostas'); // Container para ex
 const perguntaDivElement = document.getElementById('pergunta'); // Seleciona a div da pergunta para manipulação da imagem (AJUSTADO)
 let pontuacao = 0;
 let indicePergunta = 0;
-let imagemQuizDiv = 0; // Parece não ser usado
 
 const perguntas = [
     {
@@ -145,10 +144,7 @@ function exibirResultado() {
     const audio3 = new Audio('../sons/Fim.mp3');
     const totalPerguntas = perguntas.length;
     const porcentagemAcerto = (pontuacao / totalPerguntas) * 100;
-    comentarioDiv.innerHTML = '';
-    if (document.getElementById('imgQuiz')) {
-        document.getElementById('imgQuiz').style.display = 'block'; // Mostra a imagem do quiz
-    }
+    comentarioDiv.innerHTML = '';    
     resultadoDiv.style.textAlign = 'center';
     resultadoDiv.style.backgroundColor = 'rgba(81, 169, 245, 0.8)';    
     resultadoDiv.style.boxShadow = ' #0c0601 12px 12px 10px'; // Sombra para os botões}

@@ -17,12 +17,12 @@ h1 {
     text-align: center;
     font-size: 22px;
     font-weight: bold;
-    background-color: rgba(182, 147, 238, 0.4);
+    background-color: rgba(241, 237, 245, 0.133);
     padding: 2px;
     margin: 5px;
     border-radius: 8px;
     margin-bottom: 5px;
-    box-shadow: #2e0230 10px 10px 9px; /* Sombra para os botões */
+    box-shadow: instet #0d0c0d 10px 10px 9px; /* Sombra para os botões */
 }
 
 /* Estilos para a pergunta e a área de respostas/comentários */
@@ -153,16 +153,26 @@ h1 {
 
 /* Estilos para a imagem do quiz */
 #imgQuiz {
-    width: 90%;
-    height: 90%;
-    max-width: 300px;
-    max-height: 300px;
+    width: 75%;
+    height: 78%;
+    max-width: 370px;
+    max-height: 380px;
     border-radius: 8px;
+    margin-left: 535px;
+    z-index: -3;    
 }
 
 .imgQuiz {
     position: relative;
-    background-size: cover; /* Removido background-image duplicado */
+    background-size: contain; /* Removido background-image duplicado */
+}
+
+#img10{
+    margin: 30px auto;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background-clip: border-box;
 }
 
 /* Estilo para os botões "Sim" e "Não" */
@@ -212,7 +222,8 @@ legend {
     height: 50px; /* Define a altura para 50px */
     margin: 10px auto; /* Centralizar o botão */
     cursor: pointer;
-    border: outset 5px #007bff; /* Cor padrão dos botões */
+    border: outset 5px #341d06; /* Cor padrão dos botões */
+    box-shadow: #211101 10px 10px 9px; /* Sombra para os botões */
     border-radius: 8px;
     color: white;
     font-size: 20px;
