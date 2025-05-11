@@ -1,3 +1,4 @@
+// pintar.js
 document.addEventListener("DOMContentLoaded", () => {
     // Acessa as variáveis globais definidas em fase1.js
     const canvas = document.getElementById("gameCanvas");
@@ -6,30 +7,44 @@ document.addEventListener("DOMContentLoaded", () => {
     let pinturaConcluida = false;
     let selectedVerticesForTriangle = [];
     let paintedTriangles = new Set(); // Para rastrear triângulos pintados (usando strings de IDs de vértices)
+    let modoPinturaAtivo = false;
+    let esperandoSegundoVertice = false;
+    let esperandoTerceiroVertice = false;
+    let esperandoEscolhaCor = false;
 
     const cores = [
         "#f0ff00", "#ff0000", "#00ff00", "#ff00ff", "#00ffff", "#800000",
         "#808000", "#008080", "#800080", "#ff8000", "#80ff00", "#00ff80",
         "#8000ff", "#ff0080", "#ff8080", "#80ff80", "#8080ff", "#ffff80",
         "#80ffff", "#ff80ff", "#ff80ff", "#ffff00", "#00ffff", "#0000ff"
-        ];
+    ];
 
     let originalCursorColor = canvas.style.cursor;
     const precisaoSelecao = 15; // Aumenta a precisão para seleção de vértices
-    let mensagemPintarExibida = false;
-    let modoPinturaAtivo = false;
+
+    document.getElementById("salvarJogo").disabled = true;
+    document.getElementById("Imprimir").disabled = true;
 
     document.getElementById("pintarElementos").addEventListener("click", () => {
-        if (vertices.length < 3) {
-            exibirMensagemTemporaria("Adicione pelo menos <u> três pontos </u> para pintar.");
+        // 1 - Clique em pintar
+        if (!pinturaHabilitada) {
+            exibirMensagemTemporaria("Adicione as arestas para poder pintar.");
             return;
         }
         modoPinturaAtivo = true;
-        iniciarSelecaoDeCor();
+        document.getElementById("AdicionarVertice").disabled = true;
+        document.getElementById("AdicionarAresta").disabled = true;
+        document.getElementById("pintarElementos").disabled = true; // Bloqueia o botão pintar inicialmente
+        document.getElementById("resetButton").disabled = false;
+        document.getElementById("salvarJogo").disabled = true;
+        document.getElementById("Imprimir").disabled = true;
+        exibirMensagemComSeletor("Selecione a cor do triângulo:"); // Permitir escolha da cor
+        esperandoEscolhaCor = true;
     });
 
     function iniciarSelecaoDeCor() {
         exibirMensagemComSeletor("Selecione a cor do triângulo:");
+        esperandoEscolhaCor = true;
     }
 
     function encontrarVerticeProximo(x, y) {
@@ -43,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function selecionarVerticePintura(event) {
-        if (!modoPinturaAtivo) return;
+        if (!modoPinturaAtivo || esperandoEscolhaCor) return;
 
         const rect = canvas.getBoundingClientRect();
         const x = event.clientX - rect.left;
@@ -52,10 +67,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (verticeSelecionado && !selectedVerticesForTriangle.includes(verticeSelecionado)) {
             selectedVerticesForTriangle.push(verticeSelecionado);
-            if (selectedVerticesForTriangle.length === 3) {
+            if (selectedVerticesForTriangle.length === 1) {
+                exibirMensagemTemporaria("Escolha o segundo vértice para o triângulo."); // Mensagem após o primeiro vértice
+                esperandoSegundoVertice = true;
+            } else if (selectedVerticesForTriangle.length === 2) {
+                exibirMensagemTemporaria("Escolha o terceiro vértice para o triângulo."); // Mensagem após o segundo vértice
+                esperandoTerceiroVertice = true;
+            } else if (selectedVerticesForTriangle.length === 3) {
                 paintTriangle();
-            } else if (selectedVerticesForTriangle.length > 3) {
-                selectedVerticesForTriangle = [verticeSelecionado];                
             }
         } else if (verticeSelecionado && selectedVerticesForTriangle.includes(verticeSelecionado)) {
             exibirMensagemTemporaria("Este vértice já foi selecionado para este triângulo.");
@@ -79,15 +98,20 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!v1 || !v2 || !v3) {
             console.warn("Três vértices não foram selecionados corretamente.");
             selectedVerticesForTriangle = [];
-            // Reativa a seleção de vértices
+            esperandoSegundoVertice = false;
+            esperandoTerceiroVertice = false;
+            modoPinturaAtivo = true;
             canvas.addEventListener("click", selecionarVerticePintura);
+            exibirMensagemTemporaria("Selecione três vértices para pintar o triângulo.");
             return;
         }
 
         if (verificarTrianguloPintado(v1, v2, v3)) {
             exibirMensagemTemporaria("Esse triângulo já foi colorido, escolha outro.");
             selectedVerticesForTriangle = [];
-            // Reativa a seleção de vértices
+            esperandoSegundoVertice = false;
+            esperandoTerceiroVertice = false;
+            modoPinturaAtivo = true;
             canvas.addEventListener("click", selecionarVerticePintura);
             return;
         }
@@ -103,24 +127,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
         paintedTriangles.add(keyTriangulo);
         selectedVerticesForTriangle = [];
-        canvas.removeEventListener("click", selecionarVerticePintura);
+        esperandoSegundoVertice = false;
+        esperandoTerceiroVertice = false;
         modoPinturaAtivo = false;
+        document.getElementById("pintarElementos").disabled = false; // Reabilita o botão pintar
+        console.log("Botão 'Pintar Elementos' reabilitado.");
+        console.log("Triângulo pintado. paintedTriangles.size:", paintedTriangles.size, "vertices.length:", vertices.length);
+        exibirMensagemTemporaria("Triângulo pintado! Clique novamente em <u>Pintar Elementos</u> para pintar outro triângulo."); // Repetir processo
+        esperandoEscolhaCor = false;
 
         if (paintedTriangles.size === Math.max(0, vertices.length - 2)) {
+            // Pintura completa
             pinturaConcluida = true;
-            document.getElementById("addVertex").disabled = true;
-            document.getElementById("addEdge").disabled = true;
-            document.getElementById("pintarElementos").disabled = true;
-            setTimeout(() => {
-                exibirMensagemTemporaria("Pintura concluída!<br> Clique em <u> Salvar </u> para prosseguir" );
-            }, 1000);
-        } else {
-            exibirMensagemTemporaria("Triângulo pintado!<br> Clique no botão<span><strong><u>Pintar Elementos</u></strong></span>para continuar.");
+            document.getElementById("salvarJogo").disabled = false;
+            document.getElementById("Imprimir").disabled = false;
+            document.getElementById("pintarElementos").disabled = true; // Bloqueia o botão pintar
+            exibirMensagemTemporaria("Pintura completa! Clique em <u>Salvar</u> ou <u>Imprimir</u>."); // Mensagem de pintura completa
         }
-        mensagensDiv.textContent = "Clique no botão <br> <u> Pintar Elementos </u> <br> para escolher nova cor.";
-    mensagensDiv.style.display = "flex";
-    mensagensDiv.style.justifyContent = "center";
-    mensagensDiv.style.alignItems = "center";
     }
 
     function exibirMensagemTemporaria(mensagem) {
@@ -195,19 +218,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 originalCursorColor = canvas.style.cursor;
                 canvas.style.cursor = `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewport="0 0 32 32" style="fill: ${cor};"><circle cx="16" cy="16" r="16"/></svg>') 16 16, auto`;
                 canvas.addEventListener("click", selecionarVerticePintura);
-                document.getElementById("addVertex").disabled = true;
-                document.getElementById("addEdge").disabled = true;
                 mensagensDiv1.style.display = "none"; // Fecha o seletor após escolher a cor
-                const mensagenspint = document.getElementById("mensagens");
-                mensagenspint.style.display = "block";
-                mensagenspint.style.textAlign = "center";
-                mensagenspint.style.width = "76%"; // Faz a div ocupar toda a largura disponível do pai
-                mensagenspint.style.maxWidth = "78%"; // Garante que não exceda a largura do pai
-                mensagenspint.style.height = "76%"; // Ajusta a altura automaticamente
-                mensagenspint.style.maxHeight = "78%";
-                mensagenspint.style.overflowY = "auto";
-                mensagenspint.style.padding = "5px";
-                mensagenspint.innerHTML = "Selecione <b><u>três vértices</u></b> para pintar um triângulo";
+                exibirMensagemTemporaria("Escolha três vértices para pintar o triângulo."); // Mensagem após seleção de cor
+                esperandoEscolhaCor = false;
             });
             cell.appendChild(button);
         });
@@ -238,7 +251,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 originalAddEdgeClickListener.call(this); // Chama o ouvinte original
             }
             // Verifica se o botão "Adicionar Aresta" está desabilitado, o que indica que todas as arestas foram construídas
-            if (this.disabled && !mensagemPintarExibida) {
+            if (this.disabled || !mensagemPintarExibida) {
                 exibirMensagemTemporaria("Clique no Botão <br><span><b><u>Pintar Elementos</u></b></span><br> para colorir a figura.");
                 mensagemPintarExibida = true;
             }
